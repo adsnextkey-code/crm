@@ -8,8 +8,11 @@ const { auth } = require('../middleware/auth');
 
 const router = express.Router();
 
+const JWT_SECRET =
+  process.env.JWT_SECRET || 'agency_crm_super_secret_jwt_key_2026_x99_secure_production_secret';
+
 const signToken = (user) =>
-  jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
+  jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE || '30d'
   });
 
@@ -28,7 +31,7 @@ router.post('/register', async (req, res, next) => {
     if (header && header.startsWith('Bearer ')) {
       const token = header.split(' ')[1];
       try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, JWT_SECRET);
         const requester = User.findById(decoded.id);
         const isManagerish =
           requester &&

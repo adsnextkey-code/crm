@@ -2,6 +2,9 @@ const jwt = require('jsonwebtoken');
 const store = require('../store');
 const User = require('../models/User');
 
+const JWT_SECRET =
+  process.env.JWT_SECRET || 'agency_crm_super_secret_jwt_key_2026_x99_secure_production_secret';
+
 const auth = (req, res, next) => {
   try {
     const header = req.headers.authorization;
@@ -11,7 +14,7 @@ const auth = (req, res, next) => {
     const token = header.split(' ')[1];
     let decoded;
     try {
-      decoded = jwt.verify(token, process.env.JWT_SECRET);
+      decoded = jwt.verify(token, JWT_SECRET);
     } catch (err) {
       return res.status(401).json({ message: 'Not authorized, invalid or expired token' });
     }
