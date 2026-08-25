@@ -50,7 +50,11 @@ const PORT = process.env.PORT || 5000;
 
 ensureSuperadmin().catch((err) => console.error('Owner bootstrap failed:', err.message));
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
-  require('./jobs/reminders').startReminderJob();
-});
+if (require.main === module && !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
+    require('./jobs/reminders').startReminderJob();
+  });
+}
+
+module.exports = app;

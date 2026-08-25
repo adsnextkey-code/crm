@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, '..', 'data');
+const DATA_DIR = process.env.DATA_DIR || (process.env.VERCEL ? path.join('/tmp', 'crm_data') : path.join(__dirname, '..', 'data'));
 const DATA_FILE = path.join(DATA_DIR, 'db.json');
 const COLLECTIONS = ['users', 'clients', 'tasks', 'activities', 'notifications', 'reports', 'campaigns', 'contents', 'announcements', 'invites'];
 const SEQ_KEY_BY_COLLECTION = {
@@ -59,6 +59,22 @@ const syncSeqCounters = () => {
 
 const init = () => {
   fs.mkdirSync(DATA_DIR, { recursive: true });
+  if (!fs.existsSync(DATA_FILE)) {
+    const fallbacks = [
+      path.join(__dirname, 'data', 'db.json'),
+      path.join(__dirname, '..', 'data', 'db.json'),
+      path.join(process.cwd(), 'backend', 'src', 'data', 'db.json'),
+      path.join(process.cwd(), 'backend', 'data', 'db.json')
+    ];
+    for (const fb of fallbacks) {
+      if (fs.existsSync(fb)) {
+        try {
+          fs.copyFileSync(fb, DATA_FILE);
+          break;
+        } catch (e) {}
+      }
+    }
+  }
   if (fs.existsSync(DATA_FILE)) {
     try {
       const parsed = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
