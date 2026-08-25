@@ -95,23 +95,26 @@ const sendViaSendmail = (mail) => {
 };
 
 const sendViaGmail = async (mail) => {
-  const user = process.env.GMAIL_USER || process.env.MAIL_USER || 'qasim.nextkeytechnologies@gmail.com';
-  const pass = process.env.GMAIL_PASS || process.env.MAIL_PASS;
+  const user = String(process.env.GMAIL_USER || process.env.MAIL_USER || 'qasim.nextkeytechnologies@gmail.com').trim();
+  const pass = String(process.env.GMAIL_PASS || process.env.MAIL_PASS || '').replace(/\s+/g, '');
   if (!pass) {
-    throw new Error('GMAIL_PASS (Google App Password) is required to send emails via Gmail');
+    throw new Error('GMAIL_PASS (16-char Google App Password) missing in environment variables');
   }
   const nodemailer = require('nodemailer');
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: { user, pass }
   });
-  await transporter.sendMail({
-    from: mail.from || `"Agency CRM" <${user}>`,
+  console.log(`[Mailer] Dispatching email to: ${mail.to} via Gmail (${user})`);
+  const info = await transporter.sendMail({
+    from: `"Agency CRM" <${user}>`,
     to: mail.to,
     replyTo: mail.replyTo,
     subject: mail.subject,
     html: mail.html
   });
+  console.log(`[Mailer] Email sent successfully! MessageId: ${info.messageId}`);
+  return info;
 };
 
 /**
@@ -123,8 +126,8 @@ const sendViaGmail = async (mail) => {
  */
 const sendMail = async ({ to, actorEmail, actorName, subject, title, lines, actionText }) => {
   if (!to) return null;
-  const defaultFrom = process.env.GMAIL_USER || 'qasim.nextkeytechnologies@gmail.com';
-  const fromAddress = FROM_EMAIL.match(/<(.+)>/)?.[1] || defaultFrom;
+  const userFrom = String(process.env.GMAIL_USER || 'qasim.nextkeytechnologies@gmail.com').trim();
+  const fromAddress = FROM_EMAIL.match(/<(.+)>/)?.[1] || userFrom;
   const from = actorName ? `Agency CRM — ${actorName} <${fromAddress}>` : `"Agency CRM" <${fromAddress}>`;
   const mail = {
     _id: crypto.randomUUID(),
@@ -139,7 +142,7 @@ const sendMail = async ({ to, actorEmail, actorName, subject, title, lines, acti
     createdAt: new Date().toISOString()
   };
   try {
-    if (PROVIDER === 'gmail' || process.env.GMAIL_PASS) {
+    if (process.env.GMAIL_PASS || PROVIDER === 'gmail') {
       await sendViaGmail(mail);
       mail.status = 'sent';
       mail.provider = 'gmail';
@@ -151,6 +154,7 @@ const sendMail = async ({ to, actorEmail, actorName, subject, title, lines, acti
       mail.status = 'sent';
     }
   } catch (err) {
+    console.error('[Mailer Error]:', err.message);
     mail.status = PROVIDER === 'outbox' ? 'logged' : 'failed';
     mail.error = err.message;
   }
