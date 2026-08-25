@@ -1,0 +1,2151 @@
+{
+  "seq": {
+    "user": 12,
+    "client": 12,
+    "task": 31,
+    "activity": 6,
+    "notification": 8,
+    "report": 3,
+    "campaign": 4,
+    "content": 8,
+    "announcement": 2,
+    "invite": 0,
+    "users": 13,
+    "clients": 12,
+    "taskCode": 31,
+    "tasks": 31,
+    "campaigns": 4,
+    "contents": 8,
+    "reports": 3,
+    "announcements": 2,
+    "notifications": 14,
+    "activities": 7
+  },
+  "users": [
+    {
+      "name": "Qasim",
+      "email": "qasim.nextkeytechnologies@gmail.com",
+      "password": "$2a$10$u/BsdSwLOpGlaC4PjB2Ll.r/qZ1ZXfBLVxY8Bjh2rs0nNY4kspGD6",
+      "role": "manager",
+      "department": "Management",
+      "designation": "Manager",
+      "isActive": true,
+      "_id": "1",
+      "createdAt": "2026-08-24T21:35:52.239Z",
+      "updatedAt": "2026-08-24T21:35:52.239Z"
+    },
+    {
+      "name": "Orhan",
+      "email": "usman.nextkeytechnologies@gmail.com",
+      "password": "$2a$10$/7pB9AaYGHAdFeqpO9OhWeKo6vsUgc8d4Psdjgl6XWfq/acMXSw52",
+      "role": "team",
+      "department": "SEO",
+      "designation": "SEO",
+      "isActive": true,
+      "_id": "2",
+      "createdAt": "2026-08-24T21:35:52.330Z",
+      "updatedAt": "2026-08-24T21:35:52.330Z"
+    },
+    {
+      "name": "Shahrooz",
+      "email": "taqi2.nktechnologies@gmail.com",
+      "password": "$2a$10$HfSYA8QNgzWYDsHxToeEjuS7y3G0pPBiIf4yDxpwieo3hG/QCVuNe",
+      "role": "team",
+      "department": "SEO",
+      "designation": "SEO",
+      "isActive": true,
+      "_id": "3",
+      "createdAt": "2026-08-24T21:35:52.441Z",
+      "updatedAt": "2026-08-24T21:35:52.441Z"
+    },
+    {
+      "name": "Abeel",
+      "email": "myselfabeel1@gmail.com",
+      "password": "$2a$10$TqYyuvCoOc4.gKhCjIVxHuDldOB6qCps3TSzClucUiZtZxdiO1Zoe",
+      "role": "team",
+      "department": "Design",
+      "designation": "Designer",
+      "isActive": true,
+      "_id": "4",
+      "createdAt": "2026-08-24T21:35:52.552Z",
+      "updatedAt": "2026-08-24T21:35:52.552Z"
+    },
+    {
+      "name": "Fayez",
+      "email": "raheem.nextkeytechnologies@gmail.com",
+      "password": "$2a$10$vzEKk6Oqt04yFSB2EiH8vuoIqTm1yv6tdSXOP87gpGbsgovh65.ZO",
+      "role": "team",
+      "department": "GBP",
+      "designation": "GBP",
+      "isActive": true,
+      "_id": "5",
+      "createdAt": "2026-08-24T21:35:52.668Z",
+      "updatedAt": "2026-08-24T21:35:52.668Z"
+    },
+    {
+      "name": "Laiba",
+      "email": "socialmedia.nkt@gmail.com",
+      "password": "$2a$10$ce5NSQsdVq7OBEdy3jnWd.2YjZ450XX6KAI5tRwQEGN0t2kAhIxsG",
+      "role": "team",
+      "department": "Social Media",
+      "designation": "Social Media",
+      "isActive": true,
+      "_id": "6",
+      "createdAt": "2026-08-24T21:35:52.851Z",
+      "updatedAt": "2026-08-24T21:35:52.851Z"
+    },
+    {
+      "name": "Ehtasham",
+      "email": "developer.nkt@gmail.com",
+      "password": "$2a$10$611Da9WTRI0PmXqDIPqjoOcRFzOlEbDMBA4j2NFK5BZx1rUgS2iiS",
+      "role": "team",
+      "department": "Web Development",
+      "designation": "Developer",
+      "isActive": true,
+      "_id": "7",
+      "createdAt": "2026-08-24T21:35:52.952Z",
+      "updatedAt": "2026-08-24T21:35:52.952Z"
+    },
+    {
+      "name": "Ahad",
+      "email": "bilal.nextkeytechnologies@gmail.com",
+      "password": "$2a$10$rItBMAi7kwCyMxVMKJDzLO5scZvCEvcMBSPibPHWMsp1HYKPdRhIu",
+      "role": "team",
+      "department": "Backlinks",
+      "designation": "Backlinker",
+      "isActive": true,
+      "_id": "8",
+      "createdAt": "2026-08-24T21:35:53.053Z",
+      "updatedAt": "2026-08-24T21:35:53.053Z"
+    },
+    {
+      "name": "Waqar",
+      "email": "waqar.nkt@gmai.com",
+      "password": "$2a$10$Ihga/Q9e/w89WzoTHIGPqe9D2kD7YbTB6kZuxSTadb2E.JSv0YRme",
+      "role": "team",
+      "department": "Reports",
+      "designation": "Reports",
+      "isActive": true,
+      "_id": "9",
+      "createdAt": "2026-08-24T21:35:53.155Z",
+      "updatedAt": "2026-08-24T21:35:53.155Z"
+    },
+    {
+      "name": "Abdullah",
+      "email": "abdullah.nktechnology@gmail.com",
+      "password": "$2a$10$eBt.nYf.GDqJcTyGzJ/VL.TfF2CB2iHPUx6mc3OsD5fpGmU.pESma",
+      "role": "team",
+      "department": "Content",
+      "designation": "Content Writer",
+      "isActive": true,
+      "_id": "10",
+      "createdAt": "2026-08-24T21:35:53.268Z",
+      "updatedAt": "2026-08-24T21:35:53.268Z"
+    },
+    {
+      "name": "Nazish",
+      "email": "nazishbilal465@gmail.com",
+      "password": "$2a$10$3b3aciJZXftPh9YliVsqPO7nkPnMgUqkWaYNd09ed6pOtb3zpLTLS",
+      "role": "team",
+      "department": "Content",
+      "designation": "Content Writer",
+      "isActive": true,
+      "_id": "11",
+      "createdAt": "2026-08-24T21:35:53.450Z",
+      "updatedAt": "2026-08-24T21:35:53.450Z"
+    },
+    {
+      "name": "Usama",
+      "email": "ads.nextkey@gmail.com",
+      "password": "$2a$10$BrI79cNnJnrpYlhxTfX8S.6RIgBhCW1BTs91fNj7I83BbPWPejqt2",
+      "role": "team",
+      "department": "PPC",
+      "designation": "Google Ads",
+      "isActive": true,
+      "_id": "12",
+      "createdAt": "2026-08-24T21:35:53.563Z",
+      "updatedAt": "2026-08-24T21:35:53.563Z"
+    },
+    {
+      "name": "Owner",
+      "email": "officialusamano1@gmail.com",
+      "password": "$2a$10$z.A4uoRA9YydbQHykHntjeX6GTcQd1M6HweZOBpk2OK.9HsZXPR6O",
+      "role": "superadmin",
+      "isActive": true,
+      "_id": "13",
+      "createdAt": "2026-08-24T21:36:12.656Z",
+      "updatedAt": "2026-08-24T21:36:12.656Z"
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "C-SEO-001",
+      "name": "Karachi Biryani House",
+      "serviceType": "SEO",
+      "status": "Active",
+      "subService": "Local SEO",
+      "startDate": "2026-06-25T21:35:53.567Z",
+      "package": "Growth",
+      "monthlyFee": 45000,
+      "contactPerson": "Imran Qureshi",
+      "contactEmail": "contact@karachibiryani.pk",
+      "contactPhone": "+92-333-441000",
+      "websiteUrl": "https://karachibiryani.pk",
+      "_id": "1",
+      "createdAt": "2026-08-24T21:35:53.568Z",
+      "updatedAt": "2026-08-24T21:35:53.621Z",
+      "vault": {
+        "credentials": [
+          {
+            "label": "WordPress Admin",
+            "username": "kbh_admin",
+            "url": "https://karachibiryani.pk/wp-admin",
+            "password": "Kbh@Wp2026",
+            "id": "727b084f-0265-4b05-a20a-338db85e917d"
+          },
+          {
+            "label": "Google Search Console",
+            "username": "imran@karachibiryani.pk",
+            "url": "https://search.google.com/search-console",
+            "password": "Gsc#Place42",
+            "id": "447631ae-b69d-4d6f-89e7-e33b7b7fd248"
+          }
+        ],
+        "cards": [],
+        "links": [
+          {
+            "label": "Brand Guidelines Drive",
+            "url": "https://drive.google.com/drive/folders/kbh-brand-kit",
+            "id": "3ccc069f-a2f8-4ca3-a709-7db63bfc5c47"
+          },
+          {
+            "label": "Analytics Dashboard",
+            "url": "https://analytics.google.com/kbh-overview",
+            "id": "5d5e9646-2c92-4585-8ba3-41d57af74834"
+          }
+        ],
+        "socials": [
+          {
+            "platform": "Instagram",
+            "label": "Instagram Business",
+            "url": "https://instagram.com/karachibiryanihouse",
+            "id": "00651648-838b-44f3-8cf1-764bc0b2ef3d"
+          },
+          {
+            "platform": "Facebook",
+            "label": "Facebook Page",
+            "url": "https://facebook.com/karachibiryanihouse",
+            "id": "76b71bf6-755c-4d17-92fd-1b9124ff0d8f"
+          }
+        ],
+        "files": []
+      }
+    },
+    {
+      "clientId": "C-SEO-002",
+      "name": "Lahore Dental Care",
+      "serviceType": "SEO",
+      "status": "Active",
+      "subService": "Technical SEO",
+      "startDate": "2026-06-10T21:35:53.571Z",
+      "package": "Starter",
+      "monthlyFee": 35000,
+      "contactPerson": "Dr. Faisal Mirza",
+      "contactEmail": "contact@lahoredentalcare.com",
+      "contactPhone": "+92-333-441001",
+      "websiteUrl": "https://lahoredentalcare.com",
+      "_id": "2",
+      "createdAt": "2026-08-24T21:35:53.571Z",
+      "updatedAt": "2026-08-24T21:35:53.571Z"
+    },
+    {
+      "clientId": "C-SOC-001",
+      "name": "Zainab Fabrics",
+      "serviceType": "Social Media",
+      "status": "Active",
+      "subService": "Instagram Growth",
+      "startDate": "2026-05-26T21:35:53.575Z",
+      "package": "Standard",
+      "monthlyFee": 40000,
+      "contactPerson": "Zainab Ali",
+      "contactEmail": "contact@client-site.com",
+      "contactPhone": "+92-333-441002",
+      "socialProfiles": "instagram.com/zainabfabrics",
+      "_id": "3",
+      "createdAt": "2026-08-24T21:35:53.575Z",
+      "updatedAt": "2026-08-24T21:35:53.623Z",
+      "vault": {
+        "credentials": [
+          {
+            "label": "Instagram Creator Account",
+            "username": "zainabfabrics",
+            "url": "https://instagram.com/accounts/login",
+            "password": "ZF@Insta2026",
+            "id": "1757a3cf-628d-4aba-add7-8292d365351b"
+          },
+          {
+            "label": "Shopify Store Admin",
+            "username": "store@zainabfabrics.com",
+            "url": "https://zainabfabrics.myshopify.com/admin",
+            "password": "Sh0p!fy-ZF9",
+            "id": "9002c5a7-591d-4b66-a6f9-cca5eca5082a"
+          }
+        ],
+        "cards": [
+          {
+            "label": "Meta Ads Card",
+            "holder": "Zainab Ali",
+            "number": "4242424242424242",
+            "expiry": "08/28",
+            "cvv": "424",
+            "id": "787b9daa-36ff-4aa4-982b-9021c35c8196"
+          }
+        ],
+        "links": [],
+        "socials": [],
+        "files": []
+      }
+    },
+    {
+      "clientId": "C-ADS-001",
+      "name": "Desi Threads Clothing",
+      "serviceType": "Ads",
+      "status": "Active",
+      "subService": "Meta Ads",
+      "startDate": "2026-05-11T21:35:53.581Z",
+      "package": "Premium",
+      "monthlyFee": 80000,
+      "contactPerson": "Hamza Sheikh",
+      "contactEmail": "contact@desithreads.com",
+      "contactPhone": "+92-333-441003",
+      "websiteUrl": "https://desithreads.com",
+      "_id": "4",
+      "createdAt": "2026-08-24T21:35:53.581Z",
+      "updatedAt": "2026-08-24T21:35:53.581Z"
+    },
+    {
+      "clientId": "C-GBP-001",
+      "name": "Green Valley Foods",
+      "serviceType": "GBP",
+      "status": "Active",
+      "subService": "GBP Optimization",
+      "startDate": "2026-04-26T21:35:53.585Z",
+      "package": "Starter",
+      "monthlyFee": 25000,
+      "contactPerson": "Nadia Hussain",
+      "contactEmail": "contact@client-site.com",
+      "contactPhone": "+92-333-441004",
+      "_id": "5",
+      "createdAt": "2026-08-24T21:35:53.585Z",
+      "updatedAt": "2026-08-24T21:35:53.585Z"
+    },
+    {
+      "clientId": "C-DEV-001",
+      "name": "TechNest Solutions",
+      "serviceType": "Development",
+      "status": "Active",
+      "subService": "Web App",
+      "startDate": "2026-04-11T21:35:53.590Z",
+      "package": "Custom",
+      "monthlyFee": 150000,
+      "contactPerson": "Omar Farooq",
+      "contactEmail": "contact@technest.dev",
+      "contactPhone": "+92-333-441005",
+      "websiteUrl": "https://technest.dev",
+      "_id": "6",
+      "createdAt": "2026-08-24T21:35:53.590Z",
+      "updatedAt": "2026-08-24T21:35:53.590Z"
+    },
+    {
+      "clientId": "C-SEO-003",
+      "name": "Peshawar Handicrafts",
+      "serviceType": "SEO",
+      "status": "Active",
+      "subService": "E-commerce SEO",
+      "startDate": "2026-03-27T21:35:53.594Z",
+      "package": "Growth",
+      "monthlyFee": 55000,
+      "contactPerson": "Kamal Afridi",
+      "contactEmail": "contact@peshawarhandicrafts.com",
+      "contactPhone": "+92-333-441006",
+      "websiteUrl": "https://peshawarhandicrafts.com",
+      "_id": "7",
+      "createdAt": "2026-08-24T21:35:53.594Z",
+      "updatedAt": "2026-08-24T21:35:53.594Z"
+    },
+    {
+      "clientId": "C-SOC-002",
+      "name": "Islamabad Fitness Hub",
+      "serviceType": "Social Media",
+      "status": "Active",
+      "subService": "Content Creation",
+      "startDate": "2026-03-12T21:35:53.598Z",
+      "package": "Standard",
+      "monthlyFee": 38000,
+      "contactPerson": "Mahnoor Baig",
+      "contactEmail": "contact@client-site.com",
+      "contactPhone": "+92-333-441007",
+      "socialProfiles": "facebook.com/isbfitnesshub",
+      "_id": "8",
+      "createdAt": "2026-08-24T21:35:53.598Z",
+      "updatedAt": "2026-08-24T21:35:53.598Z"
+    },
+    {
+      "clientId": "C-GBP-002",
+      "name": "Ravi Auto Parts",
+      "serviceType": "GBP",
+      "status": "Active",
+      "subService": "Review Management",
+      "startDate": "2026-02-25T21:35:53.601Z",
+      "package": "Starter",
+      "monthlyFee": 22000,
+      "contactPerson": "Tariq Mehmood",
+      "contactEmail": "contact@client-site.com",
+      "contactPhone": "+92-333-441008",
+      "_id": "9",
+      "createdAt": "2026-08-24T21:35:53.601Z",
+      "updatedAt": "2026-08-24T21:35:53.601Z"
+    },
+    {
+      "clientId": "C-ADS-002",
+      "name": "Global Study Abroad",
+      "serviceType": "Ads",
+      "status": "Active",
+      "subService": "Google Ads",
+      "startDate": "2026-02-10T21:35:53.606Z",
+      "package": "Premium",
+      "monthlyFee": 95000,
+      "contactPerson": "Sarah Thompson",
+      "contactEmail": "contact@globalstudy.edu.pk",
+      "contactPhone": "+92-333-441009",
+      "websiteUrl": "https://globalstudy.edu.pk",
+      "_id": "10",
+      "createdAt": "2026-08-24T21:35:53.606Z",
+      "updatedAt": "2026-08-24T21:35:53.606Z"
+    },
+    {
+      "clientId": "C-SEO-004",
+      "name": "Multan Sweets & Bakers",
+      "serviceType": "SEO",
+      "status": "Active",
+      "subService": "Local SEO",
+      "startDate": "2026-01-26T21:35:53.610Z",
+      "package": "Starter",
+      "monthlyFee": 30000,
+      "contactPerson": "Rana Waqas",
+      "contactEmail": "contact@client-site.com",
+      "contactPhone": "+92-333-441010",
+      "_id": "11",
+      "createdAt": "2026-08-24T21:35:53.610Z",
+      "updatedAt": "2026-08-24T21:35:53.610Z"
+    },
+    {
+      "clientId": "C-DEV-002",
+      "name": "Falcon Real Estate",
+      "serviceType": "Development",
+      "status": "On-Hold",
+      "subService": "Website Redesign",
+      "startDate": "2026-01-11T21:35:53.615Z",
+      "package": "Custom",
+      "monthlyFee": 120000,
+      "contactPerson": "James Wilson",
+      "contactEmail": "contact@falconrealestate.ae",
+      "contactPhone": "+92-333-441011",
+      "websiteUrl": "https://falconrealestate.ae",
+      "_id": "12",
+      "createdAt": "2026-08-24T21:35:53.615Z",
+      "updatedAt": "2026-08-24T21:35:53.615Z"
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "TASK-0001",
+      "title": "Keyword research for biryani delivery pages",
+      "description": "Keyword research for biryani delivery pages for Karachi Biryani House (SEO).",
+      "client": "1",
+      "serviceType": "SEO",
+      "assignedTo": "2",
+      "assignedToName": "Orhan",
+      "department": "SEO",
+      "priority": "High",
+      "status": "In Progress",
+      "dueDate": "2026-08-27T21:35:53.625Z",
+      "timeSpent": 2.25,
+      "timeLogs": [
+        {
+          "_id": "192a7263-d65c-4d1c-98ee-6835382898f9",
+          "userId": "2",
+          "userName": "Orhan",
+          "minutes": 90,
+          "billable": true,
+          "note": "Keyword research session",
+          "date": "2026-08-22T21:35:53.818Z"
+        },
+        {
+          "_id": "ac12e812-9256-4c31-8b8e-e0f926c05dbc",
+          "userId": "2",
+          "userName": "Orhan",
+          "minutes": 45,
+          "billable": false,
+          "note": "Content mapping draft",
+          "date": "2026-08-23T21:35:53.822Z"
+        }
+      ],
+      "recurrence": "weekly",
+      "updates": [
+        {
+          "note": "Seed keyword list completed, moving to content mapping.",
+          "updatedBy": "2",
+          "updatedByName": "Orhan"
+        }
+      ],
+      "attachments": [],
+      "comments": [
+        {
+          "_id": "5156a4ce-b102-4ed3-b0d7-001f677897a8",
+          "text": "Primary keyword list is ready, please review before I map content pages.",
+          "userId": "2",
+          "userName": "Orhan",
+          "mentions": [],
+          "createdAt": "2026-08-23T08:14:11.825Z"
+        },
+        {
+          "_id": "66f6fde1-5247-4c91-baf7-8cc9c32f5182",
+          "text": "Reviewed — looks good. Prioritize the delivery-area keywords.",
+          "userId": "1",
+          "userName": "Qasim",
+          "mentions": [],
+          "createdAt": "2026-08-24T18:30:09.107Z"
+        }
+      ],
+      "campaignId": "2",
+      "createdBy": "1",
+      "_id": "1",
+      "createdAt": "2026-08-24T21:35:53.628Z",
+      "updatedAt": "2026-08-24T21:35:53.849Z"
+    },
+    {
+      "taskId": "TASK-0002",
+      "title": "Fix crawl errors from Search Console",
+      "description": "Fix crawl errors from Search Console for Lahore Dental Care (SEO).",
+      "client": "2",
+      "serviceType": "SEO",
+      "assignedTo": "2",
+      "assignedToName": "Orhan",
+      "department": "SEO",
+      "priority": "High",
+      "status": "Pending",
+      "dueDate": "2026-08-22T21:35:53.633Z",
+      "timeSpent": 111,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "2",
+      "createdAt": "2026-08-24T21:35:53.636Z",
+      "updatedAt": "2026-08-24T21:35:53.636Z"
+    },
+    {
+      "taskId": "TASK-0003",
+      "title": "Schema markup implementation",
+      "description": "Schema markup implementation for Lahore Dental Care (SEO).",
+      "client": "2",
+      "serviceType": "SEO",
+      "assignedTo": "2",
+      "assignedToName": "Orhan",
+      "department": "SEO",
+      "priority": "Medium",
+      "status": "On Hold",
+      "dueDate": "2026-09-01T21:35:53.640Z",
+      "timeSpent": 208,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [
+        {
+          "note": "Waiting on developer availability.",
+          "updatedBy": "2",
+          "updatedByName": "Orhan"
+        }
+      ],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "3",
+      "createdAt": "2026-08-24T21:35:53.642Z",
+      "updatedAt": "2026-08-24T21:35:53.642Z"
+    },
+    {
+      "taskId": "TASK-0004",
+      "title": "E-commerce SEO audit for handicraft store",
+      "description": "E-commerce SEO audit for handicraft store for Peshawar Handicrafts (SEO).",
+      "client": "7",
+      "serviceType": "SEO",
+      "assignedTo": "3",
+      "assignedToName": "Shahrooz",
+      "department": "SEO",
+      "priority": "High",
+      "status": "Review",
+      "dueDate": "2026-08-23T21:35:53.646Z",
+      "timeSpent": 353,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [
+        {
+          "note": "Audit submitted — 32 issues found across 4 categories.",
+          "updatedBy": "3",
+          "updatedByName": "Shahrooz"
+        }
+      ],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "4",
+      "createdAt": "2026-08-24T21:35:53.648Z",
+      "updatedAt": "2026-08-24T21:35:53.648Z"
+    },
+    {
+      "taskId": "TASK-0005",
+      "title": "Local citations cleanup for Multan Sweets",
+      "description": "Local citations cleanup for Multan Sweets for Multan Sweets & Bakers (SEO).",
+      "client": "11",
+      "serviceType": "SEO",
+      "assignedTo": "3",
+      "assignedToName": "Shahrooz",
+      "department": "SEO",
+      "priority": "Medium",
+      "status": "Pending",
+      "dueDate": "2026-08-29T21:35:53.652Z",
+      "timeSpent": 264,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "5",
+      "createdAt": "2026-08-24T21:35:53.655Z",
+      "updatedAt": "2026-08-24T21:35:53.655Z"
+    },
+    {
+      "taskId": "TASK-0006",
+      "title": "Monthly SEO report for February",
+      "description": "Monthly SEO report for February for Karachi Biryani House (SEO).",
+      "client": "1",
+      "serviceType": "SEO",
+      "assignedTo": "2",
+      "assignedToName": "Orhan",
+      "department": "SEO",
+      "priority": "Medium",
+      "status": "Completed",
+      "dueDate": "2026-08-14T21:35:53.657Z",
+      "completedAt": "2026-08-14T21:35:53.657Z",
+      "timeSpent": 321,
+      "timeLogs": [],
+      "recurrence": "monthly",
+      "updates": [
+        {
+          "note": "Work completed.",
+          "updatedBy": "2",
+          "updatedByName": "Orhan"
+        }
+      ],
+      "attachments": [],
+      "comments": [],
+      "campaignId": "2",
+      "createdBy": "1",
+      "_id": "6",
+      "createdAt": "2026-08-24T21:35:53.660Z",
+      "updatedAt": "2026-08-24T21:35:53.851Z"
+    },
+    {
+      "taskId": "TASK-0007",
+      "title": "Design Eid campaign creatives",
+      "description": "Design Eid campaign creatives for Islamabad Fitness Hub (Social Media).",
+      "client": "8",
+      "serviceType": "Social Media",
+      "assignedTo": "4",
+      "assignedToName": "Abeel",
+      "department": "Design",
+      "priority": "High",
+      "status": "Pending",
+      "dueDate": "2026-08-21T21:35:53.663Z",
+      "timeSpent": 358,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "7",
+      "createdAt": "2026-08-24T21:35:53.666Z",
+      "updatedAt": "2026-08-24T21:35:53.666Z"
+    },
+    {
+      "taskId": "TASK-0008",
+      "title": "Redesign homepage hero section",
+      "description": "Redesign homepage hero section for Falcon Real Estate (Development).",
+      "client": "12",
+      "serviceType": "Development",
+      "assignedTo": "4",
+      "assignedToName": "Abeel",
+      "department": "Design",
+      "priority": "Medium",
+      "status": "In Progress",
+      "dueDate": "2026-08-28T21:35:53.669Z",
+      "timeSpent": 116,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [
+        {
+          "note": "Two concepts ready, awaiting client feedback.",
+          "updatedBy": "4",
+          "updatedByName": "Abeel"
+        }
+      ],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "8",
+      "createdAt": "2026-08-24T21:35:53.672Z",
+      "updatedAt": "2026-08-24T21:35:53.672Z"
+    },
+    {
+      "taskId": "TASK-0009",
+      "title": "Logo variants for Zainab Fabrics packaging",
+      "description": "Logo variants for Zainab Fabrics packaging for Zainab Fabrics (Social Media).",
+      "client": "3",
+      "serviceType": "Social Media",
+      "assignedTo": "4",
+      "assignedToName": "Abeel",
+      "department": "Design",
+      "priority": "Medium",
+      "status": "Completed",
+      "dueDate": "2026-08-18T21:35:53.677Z",
+      "completedAt": "2026-08-18T21:35:53.677Z",
+      "timeSpent": 56,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [
+        {
+          "note": "Work completed.",
+          "updatedBy": "4",
+          "updatedByName": "Abeel"
+        }
+      ],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "9",
+      "createdAt": "2026-08-24T21:35:53.679Z",
+      "updatedAt": "2026-08-24T21:35:53.679Z"
+    },
+    {
+      "taskId": "TASK-0010",
+      "title": "Optimize GBP categories and services",
+      "description": "Optimize GBP categories and services for Green Valley Foods (GBP).",
+      "client": "5",
+      "serviceType": "GBP",
+      "assignedTo": "5",
+      "assignedToName": "Fayez",
+      "department": "GBP",
+      "priority": "High",
+      "status": "Review",
+      "dueDate": "2026-08-23T21:35:53.682Z",
+      "timeSpent": 55,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [
+        {
+          "note": "Submitted changes for manager review.",
+          "updatedBy": "5",
+          "updatedByName": "Fayez"
+        }
+      ],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "10",
+      "createdAt": "2026-08-24T21:35:53.683Z",
+      "updatedAt": "2026-08-24T21:35:53.683Z"
+    },
+    {
+      "taskId": "TASK-0011",
+      "title": "Respond to 12 new GBP reviews",
+      "description": "Respond to 12 new GBP reviews for Ravi Auto Parts (GBP).",
+      "client": "9",
+      "serviceType": "GBP",
+      "assignedTo": "5",
+      "assignedToName": "Fayez",
+      "department": "GBP",
+      "priority": "Low",
+      "status": "Pending",
+      "dueDate": "2026-08-30T21:35:53.688Z",
+      "timeSpent": 293,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "11",
+      "createdAt": "2026-08-24T21:35:53.690Z",
+      "updatedAt": "2026-08-24T21:35:53.690Z"
+    },
+    {
+      "taskId": "TASK-0012",
+      "title": "Weekly GBP post updates",
+      "description": "Weekly GBP post updates for Green Valley Foods (GBP).",
+      "client": "5",
+      "serviceType": "GBP",
+      "assignedTo": "5",
+      "assignedToName": "Fayez",
+      "department": "GBP",
+      "priority": "Medium",
+      "status": "Pending",
+      "dueDate": "2026-08-31T21:35:53.693Z",
+      "timeSpent": 286,
+      "timeLogs": [],
+      "recurrence": "weekly",
+      "updates": [],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "12",
+      "createdAt": "2026-08-24T21:35:53.695Z",
+      "updatedAt": "2026-08-24T21:35:53.695Z"
+    },
+    {
+      "taskId": "TASK-0013",
+      "title": "Create Instagram reels calendar for March",
+      "description": "Create Instagram reels calendar for March for Zainab Fabrics (Social Media).",
+      "client": "3",
+      "serviceType": "Social Media",
+      "assignedTo": "6",
+      "assignedToName": "Laiba",
+      "department": "Social Media",
+      "priority": "Medium",
+      "status": "In Progress",
+      "dueDate": "2026-08-28T21:35:53.701Z",
+      "timeSpent": 109,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [
+        {
+          "note": "Drafted 8 reel concepts.",
+          "updatedBy": "6",
+          "updatedByName": "Laiba"
+        }
+      ],
+      "attachments": [],
+      "comments": [],
+      "campaignId": "3",
+      "createdBy": "1",
+      "_id": "13",
+      "createdAt": "2026-08-24T21:35:53.703Z",
+      "updatedAt": "2026-08-24T21:35:53.859Z"
+    },
+    {
+      "taskId": "TASK-0014",
+      "title": "Schedule Facebook posts for fitness hub",
+      "description": "Schedule Facebook posts for fitness hub for Islamabad Fitness Hub (Social Media).",
+      "client": "8",
+      "serviceType": "Social Media",
+      "assignedTo": "6",
+      "assignedToName": "Laiba",
+      "department": "Social Media",
+      "priority": "Low",
+      "status": "Completed",
+      "dueDate": "2026-08-18T21:35:53.707Z",
+      "completedAt": "2026-08-18T21:35:53.707Z",
+      "timeSpent": 16,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [
+        {
+          "note": "Work completed.",
+          "updatedBy": "6",
+          "updatedByName": "Laiba"
+        }
+      ],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "14",
+      "createdAt": "2026-08-24T21:35:53.709Z",
+      "updatedAt": "2026-08-24T21:35:53.709Z"
+    },
+    {
+      "taskId": "TASK-0015",
+      "title": "14-day HIIT challenge TikTok series",
+      "description": "14-day HIIT challenge TikTok series for Islamabad Fitness Hub (Social Media).",
+      "client": "8",
+      "serviceType": "Social Media",
+      "assignedTo": "6",
+      "assignedToName": "Laiba",
+      "department": "Social Media",
+      "priority": "Medium",
+      "status": "Pending",
+      "dueDate": "2026-09-02T21:35:53.713Z",
+      "timeSpent": 336,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "15",
+      "createdAt": "2026-08-24T21:35:53.715Z",
+      "updatedAt": "2026-08-24T21:35:53.715Z"
+    },
+    {
+      "taskId": "TASK-0016",
+      "title": "Build study visa landing page",
+      "description": "Build study visa landing page for Global Study Abroad (Ads).",
+      "client": "10",
+      "serviceType": "Ads",
+      "assignedTo": "7",
+      "assignedToName": "Ehtasham",
+      "department": "Web Development",
+      "priority": "High",
+      "status": "In Progress",
+      "dueDate": "2026-08-29T21:35:53.719Z",
+      "timeSpent": 239,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [
+        {
+          "note": "Hero + form done, integrating CRM webhook next.",
+          "updatedBy": "7",
+          "updatedByName": "Ehtasham"
+        }
+      ],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "16",
+      "createdAt": "2026-08-24T21:35:53.721Z",
+      "updatedAt": "2026-08-24T21:35:53.721Z"
+    },
+    {
+      "taskId": "TASK-0017",
+      "title": "Site speed optimization — Core Web Vitals",
+      "description": "Site speed optimization — Core Web Vitals for Lahore Dental Care (SEO).",
+      "client": "2",
+      "serviceType": "SEO",
+      "assignedTo": "7",
+      "assignedToName": "Ehtasham",
+      "department": "Web Development",
+      "priority": "Medium",
+      "status": "Pending",
+      "dueDate": "2026-08-30T21:35:53.725Z",
+      "timeSpent": 2.5,
+      "timeLogs": [
+        {
+          "_id": "de6210db-d0ea-4861-ba52-7c662fdf4faa",
+          "userId": "7",
+          "userName": "Ehtasham",
+          "minutes": 150,
+          "billable": true,
+          "note": "Landing page build session",
+          "date": "2026-08-23T21:35:53.824Z"
+        }
+      ],
+      "recurrence": "none",
+      "updates": [],
+      "attachments": [],
+      "comments": [],
+      "campaignId": "4",
+      "createdBy": "1",
+      "_id": "17",
+      "createdAt": "2026-08-24T21:35:53.727Z",
+      "updatedAt": "2026-08-24T21:35:53.865Z"
+    },
+    {
+      "taskId": "TASK-0018",
+      "title": "WordPress core & plugin security update",
+      "description": "WordPress core & plugin security update for Karachi Biryani House (SEO).",
+      "client": "1",
+      "serviceType": "SEO",
+      "assignedTo": "7",
+      "assignedToName": "Ehtasham",
+      "department": "Web Development",
+      "priority": "Medium",
+      "status": "Completed",
+      "dueDate": "2026-08-20T21:35:53.731Z",
+      "completedAt": "2026-08-20T21:35:53.731Z",
+      "timeSpent": 167,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [
+        {
+          "note": "Updated to latest LTS, all tests green.",
+          "updatedBy": "7",
+          "updatedByName": "Ehtasham"
+        }
+      ],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "18",
+      "createdAt": "2026-08-24T21:35:53.733Z",
+      "updatedAt": "2026-08-24T21:35:53.733Z"
+    },
+    {
+      "taskId": "TASK-0019",
+      "title": "Build 10 guest post backlinks",
+      "description": "Build 10 guest post backlinks for Peshawar Handicrafts (SEO).",
+      "client": "7",
+      "serviceType": "SEO",
+      "assignedTo": "8",
+      "assignedToName": "Ahad",
+      "department": "Backlinks",
+      "priority": "Medium",
+      "status": "In Progress",
+      "dueDate": "2026-08-20T21:35:53.737Z",
+      "timeSpent": 110,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [
+        {
+          "note": "4 backlinks live, 6 outreach pending.",
+          "updatedBy": "8",
+          "updatedByName": "Ahad"
+        }
+      ],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "19",
+      "createdAt": "2026-08-24T21:35:53.739Z",
+      "updatedAt": "2026-08-24T21:35:53.739Z"
+    },
+    {
+      "taskId": "TASK-0020",
+      "title": "Disavow toxic links audit",
+      "description": "Disavow toxic links audit for Multan Sweets & Bakers (SEO).",
+      "client": "11",
+      "serviceType": "SEO",
+      "assignedTo": "8",
+      "assignedToName": "Ahad",
+      "department": "Backlinks",
+      "priority": "Low",
+      "status": "Pending",
+      "dueDate": "2026-09-02T21:35:53.742Z",
+      "timeSpent": 126,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "20",
+      "createdAt": "2026-08-24T21:35:53.745Z",
+      "updatedAt": "2026-08-24T21:35:53.745Z"
+    },
+    {
+      "taskId": "TASK-0021",
+      "title": "Competitor backlink gap analysis",
+      "description": "Competitor backlink gap analysis for Peshawar Handicrafts (SEO).",
+      "client": "7",
+      "serviceType": "SEO",
+      "assignedTo": "8",
+      "assignedToName": "Ahad",
+      "department": "Backlinks",
+      "priority": "Medium",
+      "status": "Pending",
+      "dueDate": "2026-08-29T21:35:53.748Z",
+      "timeSpent": 16,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "21",
+      "createdAt": "2026-08-24T21:35:53.750Z",
+      "updatedAt": "2026-08-24T21:35:53.750Z"
+    },
+    {
+      "taskId": "TASK-0022",
+      "title": "Weekly social media performance report",
+      "description": "Weekly social media performance report for Zainab Fabrics (Social Media).",
+      "client": "3",
+      "serviceType": "Social Media",
+      "assignedTo": "9",
+      "assignedToName": "Waqar",
+      "department": "Reports",
+      "priority": "Medium",
+      "status": "In Progress",
+      "dueDate": "2026-08-26T21:35:53.752Z",
+      "timeSpent": 196,
+      "timeLogs": [],
+      "recurrence": "weekly",
+      "updates": [],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "22",
+      "createdAt": "2026-08-24T21:35:53.755Z",
+      "updatedAt": "2026-08-24T21:35:53.755Z"
+    },
+    {
+      "taskId": "TASK-0023",
+      "title": "Set up Looker Studio dashboard for Global Study",
+      "description": "Set up Looker Studio dashboard for Global Study for Global Study Abroad (Ads).",
+      "client": "10",
+      "serviceType": "Ads",
+      "assignedTo": "9",
+      "assignedToName": "Waqar",
+      "department": "Reports",
+      "priority": "Medium",
+      "status": "Pending",
+      "dueDate": "2026-09-01T21:35:53.758Z",
+      "timeSpent": 72,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "23",
+      "createdAt": "2026-08-24T21:35:53.761Z",
+      "updatedAt": "2026-08-24T21:35:53.761Z"
+    },
+    {
+      "taskId": "TASK-0024",
+      "title": "January PPC spend summary",
+      "description": "January PPC spend summary for Desi Threads Clothing (Ads).",
+      "client": "4",
+      "serviceType": "Ads",
+      "assignedTo": "9",
+      "assignedToName": "Waqar",
+      "department": "Reports",
+      "priority": "Medium",
+      "status": "Completed",
+      "dueDate": "2026-08-12T21:35:53.766Z",
+      "completedAt": "2026-08-12T21:35:53.766Z",
+      "timeSpent": 280,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [
+        {
+          "note": "Work completed.",
+          "updatedBy": "9",
+          "updatedByName": "Waqar"
+        }
+      ],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "24",
+      "createdAt": "2026-08-24T21:35:53.767Z",
+      "updatedAt": "2026-08-24T21:35:53.767Z"
+    },
+    {
+      "taskId": "TASK-0025",
+      "title": "Write 4 blog posts for dental care tips",
+      "description": "Write 4 blog posts for dental care tips for Lahore Dental Care (SEO).",
+      "client": "2",
+      "serviceType": "SEO",
+      "assignedTo": "10",
+      "assignedToName": "Abdullah",
+      "department": "Content",
+      "priority": "Medium",
+      "status": "Completed",
+      "dueDate": "2026-08-19T21:35:53.772Z",
+      "completedAt": "2026-08-19T21:35:53.772Z",
+      "timeSpent": 97,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [
+        {
+          "note": "All posts approved and published.",
+          "updatedBy": "10",
+          "updatedByName": "Abdullah"
+        }
+      ],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "25",
+      "createdAt": "2026-08-24T21:35:53.774Z",
+      "updatedAt": "2026-08-24T21:35:53.774Z"
+    },
+    {
+      "taskId": "TASK-0026",
+      "title": "Landing page copy for study visa campaign",
+      "description": "Landing page copy for study visa campaign for Global Study Abroad (Ads).",
+      "client": "10",
+      "serviceType": "Ads",
+      "assignedTo": "10",
+      "assignedToName": "Abdullah",
+      "department": "Content",
+      "priority": "High",
+      "status": "Review",
+      "dueDate": "2026-08-25T21:35:53.781Z",
+      "timeSpent": 160,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [],
+      "attachments": [],
+      "comments": [
+        {
+          "_id": "46a176fe-f3f5-4018-934e-75ee83c1cade",
+          "text": "Draft shared. @Abdullah can you sanity-check the tone?",
+          "userId": "11",
+          "userName": "Nazish",
+          "mentions": [
+            "10"
+          ],
+          "createdAt": "2026-08-22T01:10:54.448Z"
+        }
+      ],
+      "campaignId": "4",
+      "createdBy": "1",
+      "_id": "26",
+      "createdAt": "2026-08-24T21:35:53.783Z",
+      "updatedAt": "2026-08-24T21:35:53.867Z"
+    },
+    {
+      "taskId": "TASK-0027",
+      "title": "Biryani of the Week captions — month 3",
+      "description": "Biryani of the Week captions — month 3 for Karachi Biryani House (SEO).",
+      "client": "1",
+      "serviceType": "SEO",
+      "assignedTo": "11",
+      "assignedToName": "Nazish",
+      "department": "Content",
+      "priority": "Medium",
+      "status": "In Progress",
+      "dueDate": "2026-08-27T21:35:53.787Z",
+      "timeSpent": 233,
+      "timeLogs": [],
+      "recurrence": "monthly",
+      "updates": [],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "27",
+      "createdAt": "2026-08-24T21:35:53.789Z",
+      "updatedAt": "2026-08-24T21:35:53.789Z"
+    },
+    {
+      "taskId": "TASK-0028",
+      "title": "Rewrite services page for Ravi Auto Parts",
+      "description": "Rewrite services page for Ravi Auto Parts for Ravi Auto Parts (GBP).",
+      "client": "9",
+      "serviceType": "GBP",
+      "assignedTo": "11",
+      "assignedToName": "Nazish",
+      "department": "Content",
+      "priority": "Medium",
+      "status": "Pending",
+      "dueDate": "2026-08-31T21:35:53.794Z",
+      "timeSpent": 142,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "28",
+      "createdAt": "2026-08-24T21:35:53.796Z",
+      "updatedAt": "2026-08-24T21:35:53.796Z"
+    },
+    {
+      "taskId": "TASK-0029",
+      "title": "Set up Meta ads retargeting audience",
+      "description": "Set up Meta ads retargeting audience for Desi Threads Clothing (Ads).",
+      "client": "4",
+      "serviceType": "Ads",
+      "assignedTo": "12",
+      "assignedToName": "Usama",
+      "department": "PPC",
+      "priority": "High",
+      "status": "In Progress",
+      "dueDate": "2026-08-26T21:35:53.799Z",
+      "timeSpent": 260,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [],
+      "attachments": [],
+      "comments": [],
+      "campaignId": "1",
+      "createdBy": "1",
+      "_id": "29",
+      "createdAt": "2026-08-24T21:35:53.801Z",
+      "updatedAt": "2026-08-24T21:35:53.840Z"
+    },
+    {
+      "taskId": "TASK-0030",
+      "title": "Google Ads negative keywords cleanup",
+      "description": "Google Ads negative keywords cleanup for Global Study Abroad (Ads).",
+      "client": "10",
+      "serviceType": "Ads",
+      "assignedTo": "12",
+      "assignedToName": "Usama",
+      "department": "PPC",
+      "priority": "Medium",
+      "status": "Completed",
+      "dueDate": "2026-08-17T21:35:53.805Z",
+      "completedAt": "2026-08-17T21:35:53.805Z",
+      "timeSpent": 17,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [
+        {
+          "note": "Work completed.",
+          "updatedBy": "12",
+          "updatedByName": "Usama"
+        }
+      ],
+      "attachments": [],
+      "comments": [],
+      "createdBy": "1",
+      "_id": "30",
+      "createdAt": "2026-08-24T21:35:53.807Z",
+      "updatedAt": "2026-08-24T21:35:53.807Z"
+    },
+    {
+      "taskId": "TASK-0031",
+      "title": "Ad creative A/B test setup",
+      "description": "Ad creative A/B test setup for Desi Threads Clothing (Ads).",
+      "client": "4",
+      "serviceType": "Ads",
+      "assignedTo": "12",
+      "assignedToName": "Usama",
+      "department": "PPC",
+      "priority": "High",
+      "status": "In Progress",
+      "dueDate": "2026-08-23T21:35:53.812Z",
+      "timeSpent": 71,
+      "timeLogs": [],
+      "recurrence": "none",
+      "updates": [
+        {
+          "note": "Variant B leading with 3.2% CTR vs 2.1%.",
+          "updatedBy": "12",
+          "updatedByName": "Usama"
+        }
+      ],
+      "attachments": [],
+      "comments": [],
+      "campaignId": "1",
+      "createdBy": "1",
+      "_id": "31",
+      "createdAt": "2026-08-24T21:35:53.814Z",
+      "updatedAt": "2026-08-24T21:35:53.843Z"
+    }
+  ],
+  "activities": [
+    {
+      "user": "1",
+      "userName": "Qasim",
+      "userRole": "manager",
+      "action": "created client",
+      "targetType": "client",
+      "targetId": "1",
+      "targetName": "Karachi Biryani House",
+      "createdAt": "2026-08-24T21:35:53.980Z",
+      "_id": "1",
+      "updatedAt": "2026-08-24T21:35:53.980Z"
+    },
+    {
+      "user": "1",
+      "userName": "Qasim",
+      "userRole": "manager",
+      "action": "created task",
+      "targetType": "task",
+      "targetName": "Keyword research for biryani delivery pages",
+      "details": "Assigned to Orhan",
+      "createdAt": "2026-08-24T21:35:53.984Z",
+      "_id": "2",
+      "updatedAt": "2026-08-24T21:35:53.984Z"
+    },
+    {
+      "user": "2",
+      "userName": "Orhan",
+      "userRole": "team",
+      "action": "updated task to In Progress",
+      "targetType": "task",
+      "targetName": "Keyword research for biryani delivery pages",
+      "createdAt": "2026-08-24T21:35:53.988Z",
+      "_id": "3",
+      "updatedAt": "2026-08-24T21:35:53.988Z"
+    },
+    {
+      "user": "5",
+      "userName": "Fayez",
+      "userRole": "team",
+      "action": "updated task to Review",
+      "targetType": "task",
+      "targetName": "Optimize GBP categories and services",
+      "createdAt": "2026-08-24T21:35:53.993Z",
+      "_id": "4",
+      "updatedAt": "2026-08-24T21:35:53.993Z"
+    },
+    {
+      "user": "6",
+      "userName": "Laiba",
+      "userRole": "team",
+      "action": "logged in",
+      "targetType": "auth",
+      "targetName": "Laiba",
+      "createdAt": "2026-08-24T21:35:53.998Z",
+      "_id": "5",
+      "updatedAt": "2026-08-24T21:35:53.998Z"
+    },
+    {
+      "user": "9",
+      "userName": "Waqar",
+      "userRole": "team",
+      "action": "created report",
+      "targetType": "report",
+      "targetName": "Weekly Social Media Report - Week 32",
+      "createdAt": "2026-08-24T21:35:54.003Z",
+      "_id": "6",
+      "updatedAt": "2026-08-24T21:35:54.003Z"
+    },
+    {
+      "user": "1",
+      "userName": "Qasim",
+      "userRole": "manager",
+      "action": "logged in",
+      "targetType": "auth",
+      "targetId": "1",
+      "targetName": "Qasim",
+      "createdAt": "2026-08-25T06:36:36.344Z",
+      "_id": "7",
+      "updatedAt": "2026-08-25T06:36:36.344Z"
+    }
+  ],
+  "notifications": [
+    {
+      "userId": "2",
+      "type": "assignment",
+      "title": "New task assigned",
+      "body": "Keyword research for biryani delivery pages — due in 3 days",
+      "read": false,
+      "_id": "1",
+      "createdAt": "2026-08-24T21:35:53.941Z",
+      "updatedAt": "2026-08-24T21:35:53.941Z"
+    },
+    {
+      "userId": "2",
+      "type": "comment",
+      "title": "New comment on your task",
+      "body": "Reviewed — looks good. Prioritize the delivery-area keywords.",
+      "read": false,
+      "_id": "2",
+      "createdAt": "2026-08-24T21:35:53.945Z",
+      "updatedAt": "2026-08-24T21:35:53.945Z"
+    },
+    {
+      "userId": "2",
+      "type": "reminder",
+      "title": "Overdue: Fix crawl errors from Search Console",
+      "body": "This task is past its due date",
+      "read": false,
+      "_id": "3",
+      "createdAt": "2026-08-24T21:35:53.949Z",
+      "updatedAt": "2026-08-24T21:35:53.949Z"
+    },
+    {
+      "userId": "4",
+      "type": "assignment",
+      "title": "New task assigned",
+      "body": "Design Eid campaign creatives — overdue",
+      "read": false,
+      "_id": "4",
+      "createdAt": "2026-08-24T21:35:53.955Z",
+      "updatedAt": "2026-08-24T21:35:53.955Z"
+    },
+    {
+      "userId": "5",
+      "type": "assignment",
+      "title": "New task assigned",
+      "body": "Optimize GBP categories and services — due tomorrow",
+      "read": false,
+      "_id": "5",
+      "createdAt": "2026-08-24T21:35:53.962Z",
+      "updatedAt": "2026-08-24T21:35:53.962Z"
+    },
+    {
+      "userId": "6",
+      "type": "mention",
+      "title": "Nazish mentioned you",
+      "body": "Reel script feedback needed before Friday.",
+      "read": false,
+      "_id": "6",
+      "createdAt": "2026-08-24T21:35:53.966Z",
+      "updatedAt": "2026-08-24T21:35:53.966Z"
+    },
+    {
+      "userId": "1",
+      "type": "status",
+      "title": "Task moved to Review",
+      "body": "Optimize GBP categories and services",
+      "read": false,
+      "_id": "7",
+      "createdAt": "2026-08-24T21:35:53.971Z",
+      "updatedAt": "2026-08-24T21:35:53.971Z"
+    },
+    {
+      "userId": "1",
+      "type": "status",
+      "title": "Task moved to Review",
+      "body": "E-commerce SEO audit for handicraft store",
+      "read": false,
+      "_id": "8",
+      "createdAt": "2026-08-24T21:35:53.976Z",
+      "updatedAt": "2026-08-24T21:35:53.976Z"
+    },
+    {
+      "userId": "2",
+      "type": "reminder",
+      "title": "Task overdue",
+      "body": "Fix crawl errors from Search Console was due 2026-08-22",
+      "targetId": "2",
+      "read": false,
+      "_id": "9",
+      "createdAt": "2026-08-24T21:36:12.511Z",
+      "updatedAt": "2026-08-24T21:36:12.511Z"
+    },
+    {
+      "userId": "3",
+      "type": "reminder",
+      "title": "Task overdue",
+      "body": "E-commerce SEO audit for handicraft store was due 2026-08-23",
+      "targetId": "4",
+      "read": false,
+      "_id": "10",
+      "createdAt": "2026-08-24T21:36:12.523Z",
+      "updatedAt": "2026-08-24T21:36:12.523Z"
+    },
+    {
+      "userId": "4",
+      "type": "reminder",
+      "title": "Task overdue",
+      "body": "Design Eid campaign creatives was due 2026-08-21",
+      "targetId": "7",
+      "read": false,
+      "_id": "11",
+      "createdAt": "2026-08-24T21:36:12.532Z",
+      "updatedAt": "2026-08-24T21:36:12.532Z"
+    },
+    {
+      "userId": "5",
+      "type": "reminder",
+      "title": "Task overdue",
+      "body": "Optimize GBP categories and services was due 2026-08-23",
+      "targetId": "10",
+      "read": false,
+      "_id": "12",
+      "createdAt": "2026-08-24T21:36:12.541Z",
+      "updatedAt": "2026-08-24T21:36:12.541Z"
+    },
+    {
+      "userId": "8",
+      "type": "reminder",
+      "title": "Task overdue",
+      "body": "Build 10 guest post backlinks was due 2026-08-20",
+      "targetId": "19",
+      "read": false,
+      "_id": "13",
+      "createdAt": "2026-08-24T21:36:12.551Z",
+      "updatedAt": "2026-08-24T21:36:12.551Z"
+    },
+    {
+      "userId": "12",
+      "type": "reminder",
+      "title": "Task overdue",
+      "body": "Ad creative A/B test setup was due 2026-08-23",
+      "targetId": "31",
+      "read": false,
+      "_id": "14",
+      "createdAt": "2026-08-24T21:36:12.562Z",
+      "updatedAt": "2026-08-24T21:36:12.562Z"
+    }
+  ],
+  "reports": [
+    {
+      "clientId": "1",
+      "title": "Weekly SEO Progress - Week 31",
+      "period": "Weekly",
+      "note": "Crawl errors cleared and two new landing pages indexed. Local pack visibility improving.",
+      "fileName": "week-31-deliverables.txt",
+      "fileType": "text/plain",
+      "fileSize": 179,
+      "fileData": "data:text/plain;base64,V2Vla2x5IERlbGl2ZXJhYmxlcyAtIEthcmFjaGkgQmlyeWFuaSBIb3VzZQotIFB1Ymxpc2hlZCAyIGxvY2F0aW9uIGxhbmRpbmcgcGFnZXMKLSBGaXhlZCAxNCBjcmF3bCBlcnJvcnMKLSBHQlAgcG9zdHMgeDMgbGl2ZQotIFJhbmtpbmdzOiAiYmlyeWFuaSBkZWxpdmVyeSBrYXJhY2hpIiB1cCA2IHBvc2l0aW9ucwo=",
+      "createdBy": "9",
+      "createdByName": "Waqar",
+      "_id": "1",
+      "createdAt": "2026-08-24T21:35:53.913Z",
+      "updatedAt": "2026-08-24T21:35:53.913Z"
+    },
+    {
+      "clientId": "2",
+      "title": "Monthly SEO Report - July",
+      "period": "Monthly",
+      "note": "Organic traffic up 18% MoM. Blog cluster on dental implants driving most conversions.",
+      "fileName": "",
+      "fileType": "",
+      "fileSize": 0,
+      "fileData": "",
+      "createdBy": "9",
+      "createdByName": "Waqar",
+      "_id": "2",
+      "createdAt": "2026-08-24T21:35:53.919Z",
+      "updatedAt": "2026-08-24T21:35:53.919Z"
+    },
+    {
+      "clientId": "3",
+      "title": "Weekly Social Media Report - Week 32",
+      "period": "Weekly",
+      "note": "Reel reach 42k. Follower growth +1.8%. Eid collection series performing best.",
+      "fileName": "",
+      "fileType": "",
+      "fileSize": 0,
+      "fileData": "",
+      "createdBy": "9",
+      "createdByName": "Waqar",
+      "_id": "3",
+      "createdAt": "2026-08-24T21:35:53.924Z",
+      "updatedAt": "2026-08-24T21:35:53.924Z"
+    }
+  ],
+  "campaigns": [
+    {
+      "name": "Ramadan Sales Push",
+      "clientId": "4",
+      "objective": "Drive Ramadan season sales through paid ads and retargeting.",
+      "channels": [
+        "Ads",
+        "Social Media"
+      ],
+      "budget": 150000,
+      "startDate": "2026-08-04T21:35:53.834Z",
+      "endDate": "2026-09-18T21:35:53.834Z",
+      "ownerId": "12",
+      "ownerName": "Usama",
+      "status": "Active",
+      "kpis": [
+        {
+          "label": "Orders",
+          "targetValue": 500,
+          "unit": "orders"
+        },
+        {
+          "label": "ROAS",
+          "targetValue": 4,
+          "unit": "x"
+        },
+        {
+          "label": "Purchases",
+          "targetValue": 1200,
+          "unit": "clicks"
+        }
+      ],
+      "_id": "1",
+      "createdAt": "2026-08-24T21:35:53.835Z",
+      "updatedAt": "2026-08-24T21:35:53.835Z"
+    },
+    {
+      "name": "Local SEO Domination Q3",
+      "clientId": "1",
+      "objective": "Own the local pack for biryani delivery keywords across Karachi.",
+      "channels": [
+        "SEO",
+        "GBP",
+        "Content"
+      ],
+      "budget": 120000,
+      "startDate": "2026-07-20T21:35:53.834Z",
+      "endDate": "2026-10-18T21:35:53.834Z",
+      "ownerId": "2",
+      "ownerName": "Orhan",
+      "status": "Active",
+      "kpis": [
+        {
+          "label": "Organic Traffic",
+          "targetValue": 50000,
+          "unit": "sessions"
+        },
+        {
+          "label": "Top 3 Rankings",
+          "targetValue": 15,
+          "unit": "keywords"
+        },
+        {
+          "label": "Leads",
+          "targetValue": 120,
+          "unit": "leads"
+        }
+      ],
+      "_id": "2",
+      "createdAt": "2026-08-24T21:35:53.845Z",
+      "updatedAt": "2026-08-24T21:35:53.845Z"
+    },
+    {
+      "name": "Instagram Growth Sprint",
+      "clientId": "3",
+      "objective": "Grow Zainab Fabrics Instagram audience and engagement with reels-first content.",
+      "channels": [
+        "Social Media",
+        "Content"
+      ],
+      "budget": 60000,
+      "startDate": "2026-08-14T21:35:53.834Z",
+      "endDate": "2026-10-13T21:35:53.834Z",
+      "ownerId": "6",
+      "ownerName": "Laiba",
+      "status": "On Hold",
+      "kpis": [
+        {
+          "label": "Followers",
+          "targetValue": 10000,
+          "unit": "followers"
+        },
+        {
+          "label": "Engagement Rate",
+          "targetValue": 5,
+          "unit": "%"
+        }
+      ],
+      "_id": "3",
+      "createdAt": "2026-08-24T21:35:53.855Z",
+      "updatedAt": "2026-08-24T21:35:53.855Z"
+    },
+    {
+      "name": "Google Ads Lead Gen",
+      "clientId": "10",
+      "objective": "Generate qualified study-abroad leads through search campaigns.",
+      "channels": [
+        "Ads",
+        "Email"
+      ],
+      "budget": 200000,
+      "startDate": "2026-08-31T21:35:53.834Z",
+      "endDate": "2026-11-22T21:35:53.834Z",
+      "ownerId": "12",
+      "ownerName": "Usama",
+      "status": "Planning",
+      "kpis": [
+        {
+          "label": "Leads",
+          "targetValue": 300,
+          "unit": "leads"
+        },
+        {
+          "label": "Cost per Lead",
+          "targetValue": 1500,
+          "unit": "PKR"
+        }
+      ],
+      "_id": "4",
+      "createdAt": "2026-08-24T21:35:53.861Z",
+      "updatedAt": "2026-08-24T21:35:53.861Z"
+    }
+  ],
+  "contents": [
+    {
+      "title": "Biryani of the Week - Chicken Sindhuri",
+      "clientId": "1",
+      "campaignId": "2",
+      "contentType": "Post",
+      "platform": "Instagram",
+      "caption": "This week special: Chicken Sindhuri, slow-cooked and served with saffron rice. Order before 8pm for free delivery in Karachi.",
+      "creativeFile": null,
+      "scheduledDate": "2026-08-12T21:35:53.869Z",
+      "status": "Published",
+      "assignedTo": "6",
+      "assignedToName": "Laiba",
+      "revisions": 1,
+      "locked": true,
+      "history": [
+        {
+          "status": "Brief",
+          "userId": "6",
+          "userName": "Laiba",
+          "note": "Created",
+          "at": "2026-08-08T05:35:53.869Z"
+        },
+        {
+          "status": "Production",
+          "userId": "6",
+          "userName": "Laiba",
+          "note": "",
+          "at": "2026-08-09T01:35:53.869Z"
+        },
+        {
+          "status": "Internal Review",
+          "userId": "6",
+          "userName": "Laiba",
+          "note": "Ready for review",
+          "at": "2026-08-10T17:35:53.869Z"
+        },
+        {
+          "status": "Approved",
+          "userId": "1",
+          "userName": "Qasim",
+          "note": "Looks great",
+          "at": "2026-08-11T13:35:53.869Z"
+        },
+        {
+          "status": "Scheduled",
+          "userId": "1",
+          "userName": "Qasim",
+          "note": "",
+          "at": "2026-08-11T15:35:53.869Z"
+        },
+        {
+          "status": "Published",
+          "userId": "1",
+          "userName": "Qasim",
+          "note": "Live on Instagram",
+          "at": "2026-08-14T01:35:53.869Z"
+        }
+      ],
+      "feedback": [],
+      "createdAt": "2026-08-08T03:35:53.869Z",
+      "_id": "1",
+      "updatedAt": "2026-08-24T21:35:53.869Z"
+    },
+    {
+      "title": "Eid Collection Reel Teaser",
+      "clientId": "3",
+      "campaignId": "3",
+      "contentType": "Video",
+      "platform": "Instagram",
+      "caption": "Behind the seams of our Eid Collection. Full reel drops this Friday.",
+      "creativeFile": null,
+      "status": "Internal Review",
+      "assignedTo": "6",
+      "assignedToName": "Laiba",
+      "revisions": 2,
+      "locked": false,
+      "history": [
+        {
+          "status": "Brief",
+          "userId": "6",
+          "userName": "Laiba",
+          "note": "Created",
+          "at": "2026-08-19T21:35:53.874Z"
+        },
+        {
+          "status": "Production",
+          "userId": "6",
+          "userName": "Laiba",
+          "note": "",
+          "at": "2026-08-20T17:35:53.874Z"
+        },
+        {
+          "status": "Internal Review",
+          "userId": "6",
+          "userName": "Laiba",
+          "note": "Draft submitted",
+          "at": "2026-08-21T03:35:53.874Z"
+        },
+        {
+          "status": "Production",
+          "userId": "1",
+          "userName": "Qasim",
+          "note": "Caption misses brand tone and the promo code is wrong - please revise.",
+          "at": "2026-08-21T09:35:53.874Z"
+        },
+        {
+          "status": "Internal Review",
+          "userId": "6",
+          "userName": "Laiba",
+          "note": "Revised caption and fixed promo code",
+          "at": "2026-08-23T15:35:53.874Z"
+        }
+      ],
+      "feedback": [],
+      "createdAt": "2026-08-19T19:35:53.874Z",
+      "_id": "2",
+      "updatedAt": "2026-08-24T21:35:53.874Z"
+    },
+    {
+      "title": "Ramadan Flash Sale Carousel",
+      "clientId": "4",
+      "campaignId": "1",
+      "contentType": "Ad",
+      "platform": "Facebook",
+      "caption": "48-hour flash sale: up to 60% off on all winter stock. Swipe for deals.",
+      "creativeFile": null,
+      "scheduledDate": "2026-08-27T21:35:53.869Z",
+      "status": "Scheduled",
+      "assignedTo": "12",
+      "assignedToName": "Usama",
+      "revisions": 1,
+      "locked": true,
+      "history": [
+        {
+          "status": "Brief",
+          "userId": "12",
+          "userName": "Usama",
+          "note": "Created",
+          "at": "2026-08-18T15:35:53.881Z"
+        },
+        {
+          "status": "Production",
+          "userId": "4",
+          "userName": "Abeel",
+          "note": "",
+          "at": "2026-08-19T11:35:53.881Z"
+        },
+        {
+          "status": "Internal Review",
+          "userId": "12",
+          "userName": "Usama",
+          "note": "",
+          "at": "2026-08-20T07:35:53.881Z"
+        },
+        {
+          "status": "Approved",
+          "userId": "1",
+          "userName": "Qasim",
+          "note": "Budget approved",
+          "at": "2026-08-20T21:35:53.881Z"
+        },
+        {
+          "status": "Scheduled",
+          "userId": "1",
+          "userName": "Qasim",
+          "note": "",
+          "at": "2026-08-20T22:35:53.881Z"
+        }
+      ],
+      "feedback": [],
+      "createdAt": "2026-08-18T13:35:53.881Z",
+      "_id": "3",
+      "updatedAt": "2026-08-24T21:35:53.881Z"
+    },
+    {
+      "title": "September Intake Email Blast",
+      "clientId": "10",
+      "campaignId": "4",
+      "contentType": "Email",
+      "platform": "Website",
+      "caption": "Applications for the September intake are open. Book a free counselling session today.",
+      "creativeFile": null,
+      "scheduledDate": "2026-09-01T21:35:53.869Z",
+      "status": "Scheduled",
+      "assignedTo": "11",
+      "assignedToName": "Nazish",
+      "revisions": 1,
+      "locked": true,
+      "history": [
+        {
+          "status": "Brief",
+          "userId": "11",
+          "userName": "Nazish",
+          "note": "Created",
+          "at": "2026-08-16T13:35:53.885Z"
+        },
+        {
+          "status": "Production",
+          "userId": "11",
+          "userName": "Nazish",
+          "note": "",
+          "at": "2026-08-17T09:35:53.885Z"
+        },
+        {
+          "status": "Internal Review",
+          "userId": "11",
+          "userName": "Nazish",
+          "note": "",
+          "at": "2026-08-18T05:35:53.885Z"
+        },
+        {
+          "status": "Approved",
+          "userId": "1",
+          "userName": "Qasim",
+          "note": "",
+          "at": "2026-08-19T01:35:53.885Z"
+        },
+        {
+          "status": "Scheduled",
+          "userId": "1",
+          "userName": "Qasim",
+          "note": "",
+          "at": "2026-08-19T02:35:53.885Z"
+        }
+      ],
+      "feedback": [],
+      "createdAt": "2026-08-16T11:35:53.885Z",
+      "_id": "4",
+      "updatedAt": "2026-08-24T21:35:53.885Z"
+    },
+    {
+      "title": "Dental Implants FAQ Blog",
+      "clientId": "2",
+      "campaignId": null,
+      "contentType": "Blog",
+      "platform": "Website",
+      "caption": "Long-form FAQ answering the top 12 patient questions about dental implants, pricing and recovery time.",
+      "creativeFile": null,
+      "status": "Approved",
+      "assignedTo": "10",
+      "assignedToName": "Abdullah",
+      "revisions": 1,
+      "locked": true,
+      "history": [
+        {
+          "status": "Brief",
+          "userId": "10",
+          "userName": "Abdullah",
+          "note": "Created",
+          "at": "2026-08-12T09:35:53.891Z"
+        },
+        {
+          "status": "Production",
+          "userId": "10",
+          "userName": "Abdullah",
+          "note": "",
+          "at": "2026-08-13T05:35:53.891Z"
+        },
+        {
+          "status": "Internal Review",
+          "userId": "10",
+          "userName": "Abdullah",
+          "note": "Draft ready",
+          "at": "2026-08-14T21:35:53.891Z"
+        },
+        {
+          "status": "Approved",
+          "userId": "1",
+          "userName": "Qasim",
+          "note": "Solid draft, publish after SEO check",
+          "at": "2026-08-15T17:35:53.891Z"
+        }
+      ],
+      "feedback": [],
+      "createdAt": "2026-08-12T07:35:53.891Z",
+      "_id": "5",
+      "updatedAt": "2026-08-24T21:35:53.891Z"
+    },
+    {
+      "title": "Weekend Offer GBP Post",
+      "clientId": "5",
+      "campaignId": null,
+      "contentType": "Post",
+      "platform": "Google",
+      "caption": "Fresh organic honey combo packs at 20% off this weekend only. Visit our store.",
+      "creativeFile": null,
+      "status": "Production",
+      "assignedTo": "5",
+      "assignedToName": "Fayez",
+      "revisions": 1,
+      "locked": false,
+      "history": [
+        {
+          "status": "Brief",
+          "userId": "5",
+          "userName": "Fayez",
+          "note": "Created",
+          "at": "2026-08-22T09:35:53.896Z"
+        },
+        {
+          "status": "Production",
+          "userId": "5",
+          "userName": "Fayez",
+          "note": "",
+          "at": "2026-08-22T21:35:53.896Z"
+        }
+      ],
+      "feedback": [],
+      "createdAt": "2026-08-22T07:35:53.896Z",
+      "_id": "6",
+      "updatedAt": "2026-08-24T21:35:53.896Z"
+    },
+    {
+      "title": "Winter Shawl Lookbook Shoot Brief",
+      "clientId": "7",
+      "campaignId": null,
+      "contentType": "Video",
+      "platform": "Instagram",
+      "caption": "Concept brief for the pashmina shawl lookbook: mountain backdrop, natural light, artisan close-ups.",
+      "creativeFile": null,
+      "status": "Brief",
+      "assignedTo": "4",
+      "assignedToName": "Abeel",
+      "revisions": 1,
+      "locked": false,
+      "history": [
+        {
+          "status": "Brief",
+          "userId": "4",
+          "userName": "Abeel",
+          "note": "Created",
+          "at": "2026-08-23T05:35:53.902Z"
+        }
+      ],
+      "feedback": [],
+      "createdAt": "2026-08-23T03:35:53.902Z",
+      "_id": "7",
+      "updatedAt": "2026-08-24T21:35:53.902Z"
+    },
+    {
+      "title": "Muharram Closure Announcement",
+      "clientId": "11",
+      "campaignId": null,
+      "contentType": "Post",
+      "platform": "Facebook",
+      "caption": "We will remain closed on 9th and 10th Muharram. Orders can still be placed online.",
+      "creativeFile": null,
+      "scheduledDate": "2026-09-11T21:35:53.869Z",
+      "status": "Production",
+      "assignedTo": "11",
+      "assignedToName": "Nazish",
+      "revisions": 1,
+      "locked": false,
+      "history": [
+        {
+          "status": "Brief",
+          "userId": "11",
+          "userName": "Nazish",
+          "note": "Created",
+          "at": "2026-08-23T09:35:53.908Z"
+        },
+        {
+          "status": "Production",
+          "userId": "11",
+          "userName": "Nazish",
+          "note": "",
+          "at": "2026-08-23T15:35:53.908Z"
+        }
+      ],
+      "feedback": [],
+      "createdAt": "2026-08-23T07:35:53.908Z",
+      "_id": "8",
+      "updatedAt": "2026-08-24T21:35:53.908Z"
+    }
+  ],
+  "announcements": [
+    {
+      "title": "Welcome to NextKey CRM",
+      "body": "Assalam-o-Alaikum team! Hum ne apna sara workflow ab is CRM par shift kar diya hai. Rozana apne tasks yahan update karein, comments mein discuss karein aur deadlines ka khayal rakhein. Koi masla ho to mujhe ping karein.\n\n— Qasim",
+      "pinned": true,
+      "createdBy": "1",
+      "createdByName": "Qasim",
+      "createdAt": "2026-08-22T21:35:53.930Z",
+      "_id": "1",
+      "updatedAt": "2026-08-24T21:35:53.930Z"
+    },
+    {
+      "title": "Friday prayer break — 1:00 to 2:30 PM",
+      "body": "Har Friday namaz-e-Jumma ke liye office 1:00 PM se 2:30 PM tak band rahega. Deliverables ke schedules isi hisaab se adjust kar lena.",
+      "pinned": false,
+      "createdBy": "1",
+      "createdByName": "Qasim",
+      "createdAt": "2026-08-23T21:35:53.935Z",
+      "_id": "2",
+      "updatedAt": "2026-08-24T21:35:53.935Z"
+    }
+  ],
+  "invites": []
+}
