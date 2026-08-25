@@ -94,18 +94,38 @@ const sendViaSendmail = (mail) => {
   if (result.status !== 0) throw new Error(result.stderr || 'sendmail exited with an error');
 };
 
+const sendViaGmail = async (mail) => {
+  const user = process.env.GMAIL_USER || process.env.MAIL_USER || 'qasim.nextkeytechnologies@gmail.com';
+  const pass = process.env.GMAIL_PASS || process.env.MAIL_PASS;
+  if (!pass) {
+    throw new Error('GMAIL_PASS (Google App Password) is required to send emails via Gmail');
+  }
+  const nodemailer = require('nodemailer');
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: { user, pass }
+  });
+  await transporter.sendMail({
+    from: mail.from || `"Agency CRM" <${user}>`,
+    to: mail.to,
+    replyTo: mail.replyTo,
+    subject: mail.subject,
+    html: mail.html
+  });
+};
+
 /**
- * Contact handler: routes every notification email. No SMTP credentials needed.
- * - MAIL_PROVIDER=outbox (default): stores emails in data/outbox.json only.
- * - MAIL_PROVIDER=sendmail: delivers via the server's sendmail binary
- *   (same mechanism as PHP's mail() on cPanel/Linux hosting).
+ * Contact handler: routes every notification email.
+ * - MAIL_PROVIDER=gmail (or when GMAIL_PASS is set): delivers directly via your Gmail (e.g. qasim.nextkeytechnologies@gmail.com).
+ * - MAIL_PROVIDER=sendmail: delivers via the server's sendmail binary (PHP mail() style).
  * - MAIL_PROVIDER=resend: delivers via Resend API (needs RESEND_API_KEY).
- * Every entry is always logged to the outbox so managers keep an audit trail.
+ * - MAIL_PROVIDER=outbox (default fallback): stores emails in data/outbox.json audit trail.
  */
 const sendMail = async ({ to, actorEmail, actorName, subject, title, lines, actionText }) => {
   if (!to) return null;
-  const fromAddress = FROM_EMAIL.match(/<(.+)>/)?.[1] || FROM_EMAIL;
-  const from = actorName ? `Agency CRM — ${actorName} <${fromAddress}>` : FROM_EMAIL;
+  const defaultFrom = process.env.GMAIL_USER || 'qasim.nextkeytechnologies@gmail.com';
+  const fromAddress = FROM_EMAIL.match(/<(.+)>/)?.[1] || defaultFrom;
+  const from = actorName ? `Agency CRM — ${actorName} <${fromAddress}>` : `"Agency CRM" <${fromAddress}>`;
   const mail = {
     _id: crypto.randomUUID(),
     to,
@@ -119,7 +139,11 @@ const sendMail = async ({ to, actorEmail, actorName, subject, title, lines, acti
     createdAt: new Date().toISOString()
   };
   try {
-    if (PROVIDER === 'resend') {
+    if (PROVIDER === 'gmail' || process.env.GMAIL_PASS) {
+      await sendViaGmail(mail);
+      mail.status = 'sent';
+      mail.provider = 'gmail';
+    } else if (PROVIDER === 'resend') {
       await sendViaResend(mail);
       mail.status = 'sent';
     } else if (PROVIDER === 'sendmail') {
