@@ -6,13 +6,13 @@ import { useAuth } from '../context/AuthContext'
 export default function Login() {
   const { login } = useAuth()
   const [role, setRole] = useState('manager')
-  const [email, setEmail] = useState('admin@agency.com')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
   const switchRole = (r) => {
     setRole(r)
-    setEmail(r === 'manager' ? 'admin@agency.com' : 'sara@agency.com')
+    setEmail('')
     setPassword('')
   }
 
@@ -66,9 +66,10 @@ export default function Login() {
               <Mail size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               <input
                 type="email"
+                required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@agency.com"
+                placeholder="name@nextkeytechnologies.com"
                 className="w-full bg-white border border-gray-300 rounded-lg pl-9 pr-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-colors duration-150"
               />
             </div>
@@ -80,6 +81,7 @@ export default function Login() {
               <Lock size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               <input
                 type="password"
+                required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
@@ -97,10 +99,6 @@ export default function Login() {
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
-
-        <p className="mt-6 pt-4 border-t border-gray-100 text-[11px] text-gray-400 leading-relaxed text-center">
-          Demo credentials — Manager: admin@agency.com / Admin@123 · Team member: ali@agency.com / Team@123
-        </p>
       </div>
     </div>
   )
