@@ -45,6 +45,11 @@ function RootRedirect() {
   return <Navigate to={user.role === 'manager' ? '/dashboard' : '/my-dashboard'} replace />
 }
 
+function ProfileWrapper() {
+  const { user } = useAuth()
+  return user?.role === 'manager' ? <ManagerLayout /> : <TeamLayout />
+}
+
 const managerPages = [
   ['/dashboard', Dashboard],
   ['/tasks', Tasks],
@@ -56,8 +61,13 @@ const managerPages = [
   ['/team', Team],
   ['/activity', Activity],
   ['/announcements', Announcements],
-  ['/profile', MyProfile],
-  ['/my-profile', MyProfile],
+]
+
+const teamPages = [
+  ['/my-dashboard', MyDashboard],
+  ['/my-tasks', MyTasks],
+  ['/my-clients', MyClients],
+  ['/my-work', MyWork],
 ]
 
 export default function App() {
@@ -91,13 +101,7 @@ export default function App() {
               <Route index element={<Page />} />
             </Route>
           ))}
-  {[
-    ['/my-dashboard', MyDashboard],
-    ['/my-tasks', MyTasks],
-    ['/my-clients', MyClients],
-    ['/my-work', MyWork],
-    ['/my-profile', MyProfile],
-  ].map(([path, Page]) => (
+          {teamPages.map(([path, Page]) => (
             <Route
               key={path}
               path={path}
@@ -108,6 +112,19 @@ export default function App() {
               }
             >
               <Route index element={<Page />} />
+            </Route>
+          ))}
+          {['/my-profile', '/profile'].map((path) => (
+            <Route
+              key={path}
+              path={path}
+              element={
+                <ProtectedRoute>
+                  <ProfileWrapper />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<MyProfile />} />
             </Route>
           ))}
           <Route path="/" element={<RootRedirect />} />
