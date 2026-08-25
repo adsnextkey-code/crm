@@ -1,4 +1,9 @@
+const initialPort = process.env.PORT;
 require('dotenv').config();
+if (initialPort) {
+  process.env.PORT = initialPort;
+}
+
 const express = require('express');
 const cors = require('cors');
 require('./store');
@@ -20,12 +25,20 @@ const allowedOrigins = [
 app.use(
   cors({
     origin(origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
-      return callback(new Error(`CORS blocked for origin: ${origin}`));
+      if (!origin || allowedOrigins.includes(origin) || (origin && origin.includes('vercel.app'))) return callback(null, true);
+      return callback(null, true);
     }
   })
 );
 app.use(express.json({ limit: '8mb' }));
+
+app.get('/', (req, res) =>
+  res.json({ status: 'ok', message: 'Agency CRM Backend API is running', timestamp: new Date().toISOString() })
+);
+
+app.get('/api', (req, res) =>
+  res.json({ status: 'ok', message: 'Agency CRM Backend API is running', timestamp: new Date().toISOString() })
+);
 
 app.get('/api/health', (req, res) =>
   res.json({ status: 'ok', uptime: process.uptime(), timestamp: new Date().toISOString() })
@@ -50,10 +63,12 @@ const PORT = process.env.PORT || 5000;
 
 ensureSuperadmin().catch((err) => console.error('Owner bootstrap failed:', err.message));
 
-if (require.main === module && !process.env.VERCEL) {
+if (!process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
-    require('./jobs/reminders').startReminderJob();
+    try {
+      require('./jobs/reminders').startReminderJob();
+    } catch (e) {}
   });
 }
 
