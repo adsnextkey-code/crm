@@ -34,9 +34,68 @@ const emptyDb = () => ({
 });
 
 const persist = () => {
-  const tmp = `${DATA_FILE}.tmp`;
-  fs.writeFileSync(tmp, JSON.stringify(db, null, 2));
-  fs.renameSync(tmp, DATA_FILE);
+  try {
+    const tmp = `${DATA_FILE}.tmp`;
+    fs.writeFileSync(tmp, JSON.stringify(db, null, 2));
+    fs.renameSync(tmp, DATA_FILE);
+  } catch (e) {}
+
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    clearTimeout(persistTimeout);
+    persistTimeout = setTimeout(() => {
+      persistToCloud().catch(() => {});
+    }, 150);
+  }
+};
+
+let persistTimeout = null;
+
+const persistToCloud = async () => {
+  if (!process.env.BLOB_READ_WRITE_TOKEN) return;
+  try {
+    const { put } = require('@vercel/blob');
+    await put('crm_database.json', JSON.stringify(db, null, 2), {
+      access: 'public',
+      addRandomSuffix: false
+    });
+    console.log('[Store] Persistent snapshot saved to Vercel Cloud Blob!');
+  } catch (err) {
+    console.error('[Store Cloud Persist Error]:', err.message);
+  }
+};
+
+const syncFromCloud = async () => {
+  if (!process.env.BLOB_READ_WRITE_TOKEN) return false;
+  try {
+    const { list } = require('@vercel/blob');
+    const { blobs } = await list({ prefix: 'crm_database.json' });
+    const targetBlob = blobs.find((b) => b.pathname === 'crm_database.json');
+    if (targetBlob && targetBlob.downloadUrl) {
+      const res = await fetch(targetBlob.downloadUrl);
+      if (res.ok) {
+        const cloudData = await res.json();
+        if (cloudData && typeof cloudData === 'object') {
+          const fresh = emptyDb();
+          db = { ...fresh, ...cloudData };
+          db.seq = { ...fresh.seq, ...(cloudData.seq || {}) };
+          COLLECTIONS.forEach((c) => {
+            if (!Array.isArray(db[c])) db[c] = [];
+          });
+          syncSeqCounters();
+          try {
+            const tmp = `${DATA_FILE}.tmp`;
+            fs.writeFileSync(tmp, JSON.stringify(db, null, 2));
+            fs.renameSync(tmp, DATA_FILE);
+          } catch (e) {}
+          console.log('[Store] Successfully loaded persistent CRM database from Vercel Cloud Blob!');
+          return true;
+        }
+      }
+    }
+  } catch (err) {
+    console.error('[Store Cloud Sync Error]:', err.message);
+  }
+  return false;
 };
 
 const deepCopy = (value) => JSON.parse(JSON.stringify(value));
@@ -153,4 +212,4 @@ const count = (collection, predicate) =>
 
 init();
 
-module.exports = { init, reset, nextId, insert, find, findOne, findById, update, delete: remove, count };
+module.exports = { init, reset, nextId, insert, find, findOne, findById, update, delete: remove, count, syncFromCloud, persistToCloud };

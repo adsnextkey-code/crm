@@ -32,6 +32,20 @@ app.use(
 );
 app.use(express.json({ limit: '8mb' }));
 
+let cloudSyncDone = false;
+let cloudSyncPromise = null;
+
+app.use(async (req, res, next) => {
+  if (!cloudSyncDone && process.env.BLOB_READ_WRITE_TOKEN) {
+    if (!cloudSyncPromise) {
+      cloudSyncPromise = require('./store').syncFromCloud().catch(() => false);
+    }
+    await cloudSyncPromise;
+    cloudSyncDone = true;
+  }
+  next();
+});
+
 app.get('/', (req, res) =>
   res.json({ status: 'ok', message: 'Agency CRM Backend API is running', timestamp: new Date().toISOString() })
 );
