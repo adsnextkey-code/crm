@@ -1,6 +1,7 @@
+import { useState } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
-import { Zap, ListTodo, User, LogOut, Search, LayoutDashboard, Building2, Briefcase } from 'lucide-react'
+import { Zap, ListTodo, User, LogOut, Search, LayoutDashboard, Building2, Briefcase, Menu, X } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import NotificationBell from '../components/NotificationBell'
 import CommandPalette, { useCommandPalette } from '../components/CommandPalette'
@@ -18,6 +19,7 @@ export default function TeamLayout() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
   const palette = useCommandPalette()
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const handleLogout = () => {
     logout()
@@ -27,15 +29,38 @@ export default function TeamLayout() {
 
   return (
     <div className="min-h-screen flex bg-[#f7f8fa] standalone-safe">
-      <aside className="fixed inset-y-0 left-0 w-[240px] bg-white border-r border-gray-200 flex flex-col z-40">
-        <div className="flex items-center gap-2.5 px-5 h-14 border-b border-gray-100">
-          <div className="h-8 w-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white shrink-0">
-            <Zap size={16} />
+      {/* Mobile Backdrop Overlay */}
+      {sidebarOpen && (
+        <div
+          onClick={() => setSidebarOpen(false)}
+          className="fixed inset-0 bg-black/40 z-40 md:hidden backdrop-blur-xs transition-opacity"
+        />
+      )}
+
+      {/* Sidebar: Sliding drawer on mobile, static on desktop */}
+      <aside
+        className={`fixed inset-y-0 left-0 w-[240px] bg-white border-r border-gray-200 flex flex-col z-50 transition-transform duration-200 ease-in-out md:translate-x-0 ${
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="flex items-center justify-between px-5 h-14 border-b border-gray-100">
+          <div className="flex items-center gap-2.5">
+            <div className="h-8 w-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white shrink-0">
+              <Zap size={16} />
+            </div>
+            <div>
+              <p className="font-semibold tracking-tight text-gray-900 leading-none">Agency CRM</p>
+              <p className="text-[11px] text-gray-400 mt-0.5">Team Portal</p>
+            </div>
           </div>
-          <div>
-            <p className="font-semibold tracking-tight text-gray-900 leading-none">Agency CRM</p>
-            <p className="text-[11px] text-gray-400 mt-0.5">Team Portal</p>
-          </div>
+          <button
+            type="button"
+            onClick={() => setSidebarOpen(false)}
+            className="md:hidden p-1 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100"
+            aria-label="Close menu"
+          >
+            <X size={18} />
+          </button>
         </div>
 
         <nav className="flex-1 py-3 px-3 space-y-0.5 overflow-y-auto">
@@ -43,6 +68,7 @@ export default function TeamLayout() {
             <NavLink
               key={to}
               to={to}
+              onClick={() => setSidebarOpen(false)}
               className={({ isActive }) =>
                 `flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium transition-colors duration-150 ${
                   isActive
@@ -59,7 +85,10 @@ export default function TeamLayout() {
 
         <div className="px-3 pb-4 pt-2 border-t border-gray-100 space-y-0.5">
           <button
-            onClick={() => palette.setOpen(true)}
+            onClick={() => {
+              setSidebarOpen(false)
+              palette.setOpen(true)
+            }}
             className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 transition-colors duration-150"
           >
             <Search size={16} />
@@ -69,13 +98,20 @@ export default function TeamLayout() {
             </kbd>
           </button>
           <div className="flex items-center gap-2.5 px-2.5 py-2">
-            <Avatar name={user?.name} size="md" src={user?.avatar} />
-            <div className="min-w-0 flex-1">
-              <p className="text-sm font-medium text-gray-900 truncate">{user?.name}</p>
-              <p className="text-xs text-gray-400 capitalize truncate">
-                {[user?.designation, user?.department].filter(Boolean).join(' · ') || 'Team Member'}
-              </p>
-            </div>
+            <NavLink
+              to="/my-profile"
+              onClick={() => setSidebarOpen(false)}
+              className="flex items-center gap-2.5 min-w-0 flex-1"
+              title="View & edit profile"
+            >
+              <Avatar name={user?.name} size="md" src={user?.avatar} />
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-medium text-gray-900 truncate hover:text-indigo-600">{user?.name}</p>
+                <p className="text-xs text-gray-400 capitalize truncate">
+                  {[user?.designation, user?.department].filter(Boolean).join(' · ') || 'Team Member'}
+                </p>
+              </div>
+            </NavLink>
             <button
               onClick={handleLogout}
               title="Log out"
@@ -87,11 +123,31 @@ export default function TeamLayout() {
         </div>
       </aside>
 
-      <main className="ml-[240px] flex-1 min-w-0 flex flex-col">
-        <header className="sticky top-0 z-30 h-12 bg-[#f7f8fa] flex items-center justify-end px-6 gap-1">
-          <NotificationBell />
+      <main className="ml-0 md:ml-[240px] flex-1 min-w-0 flex flex-col">
+        <header className="sticky top-0 z-30 h-14 bg-white md:bg-[#f7f8fa] border-b border-gray-200 md:border-transparent flex items-center justify-between px-4 md:px-6">
+          <div className="flex items-center gap-3 md:hidden">
+            <button
+              type="button"
+              onClick={() => setSidebarOpen(true)}
+              className="p-1.5 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+              aria-label="Open menu"
+            >
+              <Menu size={20} />
+            </button>
+            <div className="flex items-center gap-2">
+              <div className="h-6 w-6 rounded-md bg-indigo-600 flex items-center justify-center text-white shrink-0">
+                <Zap size={13} />
+              </div>
+              <span className="font-semibold text-sm text-gray-900">Agency CRM</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 ml-auto">
+            <NotificationBell />
+          </div>
         </header>
-        <div className="flex-1 px-6 pb-10">
+
+        <div className="flex-1 px-3 sm:px-6 py-4 sm:py-6">
           <div className="max-w-[1200px] mx-auto">
             <Outlet />
           </div>
