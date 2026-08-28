@@ -59,7 +59,7 @@ router.get('/', auth, (req, res, next) => {
   }
 });
 
-router.post('/', auth, managerOnly, (req, res, next) => {
+router.post('/', auth, managerOnly, async (req, res, next) => {
   try {
     const payload = { ...req.body, createdBy: req.user._id };
 
@@ -81,7 +81,7 @@ router.post('/', auth, managerOnly, (req, res, next) => {
     if (!payload.dueDate) return res.status(400).json({ message: 'Due date is required' });
     if (!payload.title) return res.status(400).json({ message: 'Title is required' });
 
-    const task = Task.createTask(payload);
+    const task = await Task.createTask(payload);
     if (task.assignedTo && String(task.assignedTo) !== String(req.user._id)) {
       createNotification({
         userId: task.assignedTo,
@@ -179,7 +179,7 @@ router.put('/:id', auth, async (req, res, next) => {
       ];
     }
 
-    const saved = Task.updateTask(req.params.id, patch);
+    const saved = await Task.updateTask(req.params.id, patch);
 
     if (patch.status && patch.status !== oldStatus && saved.createdBy && String(saved.createdBy) !== String(req.user._id)) {
       createNotification({
@@ -221,7 +221,7 @@ router.put('/:id', auth, async (req, res, next) => {
   }
 });
 
-router.post('/:id/time', auth, (req, res, next) => {
+router.post('/:id/time', auth, async (req, res, next) => {
   try {
     const task = Task.findById(req.params.id);
     if (!task) return res.status(404).json({ message: 'Task not found' });
@@ -242,7 +242,7 @@ router.post('/:id/time', auth, (req, res, next) => {
       return res.status(400).json({ message: 'Invalid date' });
     }
 
-    const saved = Task.addTimeLog(task._id, {
+    const saved = await Task.addTimeLog(task._id, {
       userId: req.user._id,
       userName: req.user.name,
       minutes,
@@ -268,7 +268,7 @@ router.post('/:id/time', auth, (req, res, next) => {
   }
 });
 
-router.delete('/:id/time/:logId', auth, (req, res, next) => {
+router.delete('/:id/time/:logId', auth, async (req, res, next) => {
   try {
     const task = Task.findById(req.params.id);
     if (!task) return res.status(404).json({ message: 'Task not found' });
@@ -280,7 +280,7 @@ router.delete('/:id/time/:logId', auth, (req, res, next) => {
       return res.status(403).json({ message: 'You can only delete your own time logs' });
     }
 
-    const saved = Task.removeTimeLog(task._id, req.params.logId);
+    const saved = await Task.removeTimeLog(task._id, req.params.logId);
     res.json(populateTask(saved));
   } catch (err) {
     next(err);
@@ -304,7 +304,7 @@ router.get('/:id/comments', auth, (req, res, next) => {
   }
 });
 
-router.post('/:id/comments', auth, (req, res, next) => {
+router.post('/:id/comments', auth, async (req, res, next) => {
   try {
     const task = Task.findById(req.params.id);
     if (!task) return res.status(404).json({ message: 'Task not found' });
@@ -331,7 +331,7 @@ router.post('/:id/comments', auth, (req, res, next) => {
       createdAt: new Date().toISOString()
     };
 
-    const saved = Task.updateTask(task._id, { comments: [...(task.comments || []), comment] });
+    const saved = await Task.updateTask(task._id, { comments: [...(task.comments || []), comment] });
 
     if (saved.assignedTo && String(saved.assignedTo) !== String(req.user._id)) {
       createNotification({
@@ -388,7 +388,7 @@ router.post('/:id/comments', auth, (req, res, next) => {
   }
 });
 
-router.delete('/:id/comments/:commentId', auth, (req, res, next) => {
+router.delete('/:id/comments/:commentId', auth, async (req, res, next) => {
   try {
     const task = Task.findById(req.params.id);
     if (!task) return res.status(404).json({ message: 'Task not found' });
@@ -400,7 +400,7 @@ router.delete('/:id/comments/:commentId', auth, (req, res, next) => {
       return res.status(403).json({ message: 'You can only delete your own comments' });
     }
 
-    const saved = Task.updateTask(
+    const saved = await Task.updateTask(
       task._id,
       { comments: task.comments.filter((c) => c._id !== req.params.commentId) }
     );
@@ -410,9 +410,9 @@ router.delete('/:id/comments/:commentId', auth, (req, res, next) => {
   }
 });
 
-router.delete('/:id', auth, managerOnly, (req, res, next) => {
+router.delete('/:id', auth, managerOnly, async (req, res, next) => {
   try {
-    const task = store.delete('tasks', req.params.id);
+    const task = await store.delete('tasks', req.params.id);
     if (!task) return res.status(404).json({ message: 'Task not found' });
     logActivity({
       user: req.user._id,

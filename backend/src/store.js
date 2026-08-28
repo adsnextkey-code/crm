@@ -33,7 +33,7 @@ const emptyDb = () => ({
   invites: []
 });
 
-const persist = () => {
+const persist = async () => {
   try {
     const tmp = `${DATA_FILE}.tmp`;
     fs.writeFileSync(tmp, JSON.stringify(db, null, 2));
@@ -41,11 +41,13 @@ const persist = () => {
   } catch (e) {}
 
   if (process.env.BLOB_READ_WRITE_TOKEN) {
-    persistToCloud().catch((err) => console.error('[Store Cloud Persist Error]:', err.message));
+    try {
+      await persistToCloud();
+    } catch (err) {
+      console.error('[Store Cloud Persist Error]:', err.message);
+    }
   }
 };
-
-let persistTimeout = null;
 
 const persistToCloud = async () => {
   if (!process.env.BLOB_READ_WRITE_TOKEN) return;
@@ -150,27 +152,28 @@ const init = () => {
   persist();
 };
 
-const reset = () => {
+const reset = async () => {
   db = emptyDb();
-  persist();
+  await persist();
 };
 
-const nextId = (collection) => {
+const nextId = async (collection) => {
   db.seq[collection] = (db.seq[collection] || 0) + 1;
-  persist();
+  await persist();
   return db.seq[collection];
 };
 
-const insert = (collection, doc) => {
+const insert = async (collection, doc) => {
   const now = new Date().toISOString();
+  db.seq[collection] = (db.seq[collection] || 0) + 1;
   const record = {
     ...doc,
-    _id: String(nextId(collection)),
+    _id: String(db.seq[collection]),
     createdAt: doc.createdAt || now,
     updatedAt: doc.updatedAt || now
   };
   db[collection].push(record);
-  persist();
+  await persist();
   return deepCopy(record);
 };
 
@@ -187,20 +190,20 @@ const findOne = (collection, predicate) => {
 const findById = (collection, id) =>
   findOne(collection, (doc) => String(doc._id) === String(id));
 
-const update = (collection, id, patch) => {
+const update = async (collection, id, patch) => {
   const doc = db[collection].find((d) => String(d._id) === String(id));
   if (!doc) return undefined;
   Object.assign(doc, patch);
   doc.updatedAt = new Date().toISOString();
-  persist();
+  await persist();
   return deepCopy(doc);
 };
 
-const remove = (collection, id) => {
+const remove = async (collection, id) => {
   const idx = db[collection].findIndex((d) => String(d._id) === String(id));
   if (idx === -1) return undefined;
   const [deleted] = db[collection].splice(idx, 1);
-  persist();
+  await persist();
   return deepCopy(deleted);
 };
 

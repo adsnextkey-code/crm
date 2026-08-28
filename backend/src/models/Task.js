@@ -1,4 +1,4 @@
-﻿const store = require('../store');
+const store = require('../store');
 const crypto = require('crypto');
 
 const RECURRENCE_VALUES = ['none', 'daily', 'weekly', 'monthly'];
@@ -43,7 +43,7 @@ const nextTaskId = () => {
 
 const findById = (id) => store.findById('tasks', id);
 
-const createTask = (data = {}) => {
+const createTask = async (data = {}) => {
   const title = typeof data.title === 'string' ? data.title.trim() : '';
   if (!title) throw Object.assign(new Error('Title is required'), { name: 'ValidationError' });
   if (!data.client) throw Object.assign(new Error('Client is required'), { name: 'ValidationError' });
@@ -52,7 +52,7 @@ const createTask = (data = {}) => {
   validateFields(data);
 
   const doc = {
-    taskId: nextTaskId(),
+    taskId: await nextTaskId(),
     title,
     description: data.description,
     client: data.client,
@@ -79,13 +79,13 @@ const createTask = (data = {}) => {
     campaignId: data.campaignId || undefined,
     createdBy: data.createdBy
   };
-  return store.insert('tasks', doc);
+  return await store.insert('tasks', doc);
 };
 
 const computeTotalMinutes = (task) =>
   (task?.timeLogs || []).reduce((sum, log) => sum + (Number(log.minutes) || 0), 0);
 
-const addTimeLog = (id, log = {}) => {
+const addTimeLog = async (id, log = {}) => {
   const task = store.findById('tasks', id);
   if (!task) return undefined;
   const entry = {
@@ -98,23 +98,23 @@ const addTimeLog = (id, log = {}) => {
     date: log.date instanceof Date ? log.date.toISOString() : log.date || new Date().toISOString()
   };
   const timeLogs = [...(task.timeLogs || []), entry];
-  return store.update('tasks', id, {
+  return await store.update('tasks', id, {
     timeLogs,
     timeSpent: Math.round((computeTotalMinutes({ timeLogs }) / 60) * 100) / 100
   });
 };
 
-const removeTimeLog = (id, logId) => {
+const removeTimeLog = async (id, logId) => {
   const task = store.findById('tasks', id);
   if (!task) return undefined;
   const timeLogs = (task.timeLogs || []).filter((l) => l._id !== logId);
-  return store.update('tasks', id, {
+  return await store.update('tasks', id, {
     timeLogs,
     timeSpent: Math.round((computeTotalMinutes({ timeLogs }) / 60) * 100) / 100
   });
 };
 
-const updateTask = (id, patch = {}) => {
+const updateTask = async (id, patch = {}) => {
   const current = store.findById('tasks', id);
   if (!current) return undefined;
   validateFields(patch, { partial: true });
@@ -122,7 +122,7 @@ const updateTask = (id, patch = {}) => {
   delete clean._id;
   delete clean.taskId;
   delete clean.createdAt;
-  return store.update('tasks', id, clean);
+  return await store.update('tasks', id, clean);
 };
 
 module.exports = {
