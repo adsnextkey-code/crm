@@ -491,7 +491,7 @@
           "date": "2026-08-23T21:35:53.822Z"
         }
       ],
-      "recurrence": "weekly",
+      "recurrence": "none",
       "updates": [
         {
           "note": "Seed keyword list completed, moving to content mapping.",
@@ -643,7 +643,7 @@
       "completedAt": "2026-08-14T21:35:53.657Z",
       "timeSpent": 321,
       "timeLogs": [],
-      "recurrence": "monthly",
+      "recurrence": "none",
       "updates": [
         {
           "note": "Work completed.",
@@ -807,7 +807,7 @@
       "dueDate": "2026-08-31T21:35:53.693Z",
       "timeSpent": 286,
       "timeLogs": [],
-      "recurrence": "weekly",
+      "recurrence": "none",
       "updates": [],
       "attachments": [],
       "comments": [],
@@ -1081,7 +1081,7 @@
       "dueDate": "2026-08-26T21:35:53.752Z",
       "timeSpent": 196,
       "timeLogs": [],
-      "recurrence": "weekly",
+      "recurrence": "none",
       "updates": [],
       "attachments": [],
       "comments": [],
@@ -1222,7 +1222,7 @@
       "dueDate": "2026-08-27T21:35:53.787Z",
       "timeSpent": 233,
       "timeLogs": [],
-      "recurrence": "monthly",
+      "recurrence": "none",
       "updates": [],
       "attachments": [],
       "comments": [],

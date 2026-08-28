@@ -181,57 +181,6 @@ router.put('/:id', auth, async (req, res, next) => {
 
     const saved = Task.updateTask(req.params.id, patch);
 
-    if (
-      patch.status === 'Completed' &&
-      oldStatus !== 'Completed' &&
-      saved.recurrence &&
-      saved.recurrence !== 'none'
-    ) {
-      const intervalDays = { daily: 1, weekly: 7, monthly: 30 }[saved.recurrence] || 7;
-      const stepMs = intervalDays * 24 * 60 * 60 * 1000;
-      let nextDue = new Date(saved.dueDate || Date.now()).getTime();
-      const now = Date.now();
-      while (nextDue <= now) nextDue += stepMs;
-      const next = Task.createTask({
-        title: saved.title,
-        description: saved.description,
-        client: saved.client,
-        clientName: saved.clientName,
-        serviceType: saved.serviceType,
-        assignedTo: saved.assignedTo,
-        assignedToName: saved.assignedToName,
-        department: saved.department,
-        priority: saved.priority,
-        status: 'Pending',
-        dueDate: new Date(nextDue).toISOString(),
-        recurrence: saved.recurrence,
-        parentTaskId: String(saved._id),
-        isRecurringInstance: true,
-        createdBy: saved.createdBy
-      });
-      if (next.assignedTo) {
-        createNotification({
-          userId: next.assignedTo,
-          type: 'assignment',
-          title: 'New task assigned',
-          body: `${next.title} — recurring (${saved.recurrence}), due ${String(next.dueDate).slice(0, 10)}`
-        });
-        sendMail({
-          to: userEmail(next.assignedTo),
-          actorEmail: req.user.email,
-          actorName: req.user.name,
-          subject: `Recurring task due: ${next.title}`,
-          title: 'Recurring task ready',
-          lines: [
-            ['Task', next.title],
-            ['Repeat', saved.recurrence],
-            ['Due date', String(next.dueDate).slice(0, 10)]
-          ],
-          actionText: 'Open Task'
-        });
-      }
-    }
-
     if (patch.status && patch.status !== oldStatus && saved.createdBy && String(saved.createdBy) !== String(req.user._id)) {
       createNotification({
         userId: saved.createdBy,
