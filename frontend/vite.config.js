@@ -4,6 +4,15 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
   base: './',
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: 'assets/[name].js',
+        chunkFileNames: 'assets/[name].js',
+        assetFileNames: 'assets/[name].[ext]'
+      }
+    }
+  },
   plugins: [
     react(),
     VitePWA({
@@ -22,19 +31,19 @@ export default defineConfig({
         background_color: '#f7f8fa',
         display: 'standalone',
         orientation: 'any',
-        start_url: '/',
-        scope: '/',
+        start_url: './',
+        scope: './',
         icons: [
-          { src: '/pwa-192x192.png', sizes: '192x192', type: 'image/png' },
-          { src: '/pwa-512x512.png', sizes: '512x512', type: 'image/png' },
+          { src: './pwa-192x192.png', sizes: '192x192', type: 'image/png' },
+          { src: './pwa-512x512.png', sizes: '512x512', type: 'image/png' },
           {
-            src: '/maskable-192x192.png',
+            src: './maskable-192x192.png',
             sizes: '192x192',
             type: 'image/png',
             purpose: 'maskable',
           },
           {
-            src: '/maskable-512x512.png',
+            src: './maskable-512x512.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'maskable',
@@ -42,28 +51,10 @@ export default defineConfig({
         ],
       },
       workbox: {
-        navigateFallback: '/index.html',
         globPatterns: ['**/*.{js,css,html,png,svg,woff2}'],
-        runtimeCaching: [
-          {
-            urlPattern: ({ url, request }) =>
-              request.method === 'GET' &&
-              url.pathname.startsWith('/api/'),
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'api-cache',
-              networkTimeoutSeconds: 3,
-              expiration: {
-                maxEntries: 50,
-              },
-              cacheableResponse: {
-                headers: {
-                  'Cache-Control': 'max-age=300',
-                },
-              },
-            },
-          },
-        ],
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+        skipWaiting: true,
       },
       devOptions: {
         enabled: false,
