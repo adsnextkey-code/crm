@@ -7,11 +7,19 @@ const defaultBaseUrl =
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || defaultBaseUrl,
+  headers: {
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
+    'Pragma': 'no-cache',
+    'Expires': '0'
+  }
 })
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('crm_token')
   if (token) config.headers.Authorization = `Bearer ${token}`
+  if (config.method === 'get') {
+    config.params = { ...config.params, _t: Date.now() }
+  }
   return config
 })
 
