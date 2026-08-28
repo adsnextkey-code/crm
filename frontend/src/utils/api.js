@@ -1,9 +1,6 @@
 import axios from 'axios'
 
-const defaultBaseUrl =
-  typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-    ? '/api'
-    : 'https://crm-ruddy-zeta.vercel.app/api'
+const defaultBaseUrl = '/api'
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || defaultBaseUrl,
