@@ -49,50 +49,86 @@ const persist = async () => {
   }
 };
 
-const persistToCloud = async () => {
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return;
+const CLOUD_STORAGE_URL = 'https://api.restful-api.dev/objects/ff8081819ff5b11001a049dbde10572a';
+
+const applyCloudDb = (cloudData) => {
+  const fresh = emptyDb();
+  db = { ...fresh, ...cloudData };
+  db.seq = { ...fresh.seq, ...(cloudData.seq || {}) };
+  COLLECTIONS.forEach((c) => {
+    if (!Array.isArray(db[c])) db[c] = [];
+  });
+  syncSeqCounters();
   try {
-    const { put } = require('@vercel/blob');
-    await put('crm_database.json', JSON.stringify(db, null, 2), {
-      access: 'public',
-      addRandomSuffix: false
+    const tmp = `${DATA_FILE}.tmp`;
+    fs.writeFileSync(tmp, JSON.stringify(db, null, 2));
+    fs.renameSync(tmp, DATA_FILE);
+  } catch (e) {}
+};
+
+const persistToCloud = async () => {
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    try {
+      const { put } = require('@vercel/blob');
+      await put('crm_database.json', JSON.stringify(db, null, 2), {
+        access: 'public',
+        addRandomSuffix: false
+      });
+      console.log('[Store] Persistent snapshot saved to Vercel Cloud Blob!');
+    } catch (err) {
+      console.error('[Store Vercel Blob Error]:', err.message);
+    }
+  }
+
+  try {
+    const res = await fetch(CLOUD_STORAGE_URL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: 'crm_db', data: db })
     });
-    console.log('[Store] Persistent snapshot saved to Vercel Cloud Blob!');
+    if (res.ok) {
+      console.log('[Store] Persistent snapshot saved to Cloud KV Store!');
+    }
   } catch (err) {
-    console.error('[Store Cloud Persist Error]:', err.message);
+    console.error('[Store Cloud KV Persist Error]:', err.message);
   }
 };
 
 const syncFromCloud = async () => {
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return false;
-  try {
-    const { list } = require('@vercel/blob');
-    const { blobs } = await list({ prefix: 'crm_database.json' });
-    const targetBlob = blobs.find((b) => b.pathname === 'crm_database.json');
-    if (targetBlob && targetBlob.downloadUrl) {
-      const res = await fetch(targetBlob.downloadUrl);
-      if (res.ok) {
-        const cloudData = await res.json();
-        if (cloudData && typeof cloudData === 'object') {
-          const fresh = emptyDb();
-          db = { ...fresh, ...cloudData };
-          db.seq = { ...fresh.seq, ...(cloudData.seq || {}) };
-          COLLECTIONS.forEach((c) => {
-            if (!Array.isArray(db[c])) db[c] = [];
-          });
-          syncSeqCounters();
-          try {
-            const tmp = `${DATA_FILE}.tmp`;
-            fs.writeFileSync(tmp, JSON.stringify(db, null, 2));
-            fs.renameSync(tmp, DATA_FILE);
-          } catch (e) {}
-          console.log('[Store] Successfully loaded persistent CRM database from Vercel Cloud Blob!');
-          return true;
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    try {
+      const { list } = require('@vercel/blob');
+      const { blobs } = await list({ prefix: 'crm_database.json' });
+      const targetBlob = blobs.find((b) => b.pathname === 'crm_database.json');
+      if (targetBlob && targetBlob.downloadUrl) {
+        const res = await fetch(targetBlob.downloadUrl);
+        if (res.ok) {
+          const cloudData = await res.json();
+          if (cloudData && typeof cloudData === 'object' && Array.isArray(cloudData.tasks)) {
+            applyCloudDb(cloudData);
+            console.log('[Store] Successfully loaded persistent CRM database from Vercel Cloud Blob!');
+            return true;
+          }
         }
+      }
+    } catch (err) {
+      console.error('[Store Vercel Blob Sync Error]:', err.message);
+    }
+  }
+
+  try {
+    const res = await fetch(CLOUD_STORAGE_URL);
+    if (res.ok) {
+      const payload = await res.json();
+      const cloudData = payload && payload.data;
+      if (cloudData && typeof cloudData === 'object' && Array.isArray(cloudData.tasks)) {
+        applyCloudDb(cloudData);
+        console.log('[Store] Successfully loaded persistent CRM database from Cloud KV Store!');
+        return true;
       }
     }
   } catch (err) {
-    console.error('[Store Cloud Sync Error]:', err.message);
+    console.error('[Store Cloud KV Sync Error]:', err.message);
   }
   return false;
 };

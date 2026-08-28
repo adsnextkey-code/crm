@@ -36,7 +36,7 @@ let cloudSyncDone = false;
 let cloudSyncPromise = null;
 
 app.use(async (req, res, next) => {
-  if (!cloudSyncDone && process.env.BLOB_READ_WRITE_TOKEN) {
+  if (!cloudSyncDone) {
     if (!cloudSyncPromise) {
       cloudSyncPromise = require('./store').syncFromCloud().catch(() => false);
     }
