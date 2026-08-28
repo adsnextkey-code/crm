@@ -21,6 +21,7 @@ const SERVICE_PREFIXES = {
 };
 
 const OPTIONAL_FIELDS = [
+  'partnerName',
   'subService',
   'startDate',
   'package',

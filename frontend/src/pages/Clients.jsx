@@ -64,7 +64,7 @@ export default function Clients() {
 
   const filtered = useMemo(() => {
     return clients.filter((c) => {
-      if (search && !`${c.name} ${c.clientId || ''} ${c.contactPerson || ''}`.toLowerCase().includes(search.toLowerCase())) return false
+      if (search && !`${c.name} ${c.clientId || ''} ${c.partnerName || ''} ${c.contactPerson || ''}`.toLowerCase().includes(search.toLowerCase())) return false
       if (serviceFilter && c.serviceType !== serviceFilter) return false
       if (statusFilter && c.status !== statusFilter) return false
       return true
@@ -114,6 +114,7 @@ export default function Clients() {
       filtered.map((c) => ({
         ID: c.clientId || '',
         Name: c.name,
+        Partner: c.partnerName || '',
         Service: c.serviceType || '',
         SubService: c.subService || '',
         Status: c.status || '',
@@ -189,6 +190,7 @@ export default function Clients() {
               <thead>
                 <tr className="border-b border-gray-200 bg-gray-50/60 text-left text-xs uppercase tracking-wide text-gray-400 font-medium">
                   <th className="px-4 py-2.5">Client</th>
+                  <th className="px-4 py-2.5">Partner</th>
                   <th className="px-4 py-2.5">Service</th>
                   <th className="px-4 py-2.5">Status</th>
                   <th className="px-4 py-2.5">Package</th>
@@ -208,6 +210,7 @@ export default function Clients() {
                       <p className="font-medium text-gray-900">{c.name}</p>
                       <p className="text-xs text-gray-400">{c.clientId || ''}</p>
                     </td>
+                    <td className="px-4 py-2.5 text-gray-700 font-medium">{c.partnerName || '—'}</td>
                     <td className="px-4 py-2.5"><Badge text={c.serviceType} /></td>
                     <td className="px-4 py-2.5"><Badge text={c.status} type="status" /></td>
                     <td className="px-4 py-2.5 text-gray-500">{c.package || '—'}</td>
@@ -288,6 +291,7 @@ export default function Clients() {
                 </div>
 
                 <h4 className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">Details</h4>
+                {drawerClient.partnerName && <DetailRow label="Partner" value={drawerClient.partnerName} />}
                 <DetailRow label="Service" value={drawerClient.serviceType} />
                 {drawerClient.subService && <DetailRow label="Sub Service" value={drawerClient.subService} />}
                 {drawerClient.package && <DetailRow label="Package" value={drawerClient.package} />}

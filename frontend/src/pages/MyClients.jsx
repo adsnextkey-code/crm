@@ -33,7 +33,7 @@ export default function MyClients() {
     const q = search.trim().toLowerCase()
     if (!q) return clients
     return clients.filter((c) =>
-      [c.name, c.serviceType, c.clientId].some((v) => String(v || '').toLowerCase().includes(q))
+      [c.name, c.serviceType, c.clientId, c.partnerName].some((v) => String(v || '').toLowerCase().includes(q))
     )
   }, [clients, search])
 
@@ -94,8 +94,13 @@ export default function MyClients() {
                     {c.status || 'Active'}
                   </span>
                 </div>
-                {c.package && (
+                {c.partnerName && (
                   <p className="text-xs text-gray-500 mt-2.5">
+                    Partner: <span className="font-semibold text-indigo-700">{c.partnerName}</span>
+                  </p>
+                )}
+                {c.package && (
+                  <p className="text-xs text-gray-500 mt-1">
                     Package: <span className="font-medium text-gray-700">{c.package}</span>
                   </p>
                 )}

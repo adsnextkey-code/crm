@@ -7,6 +7,7 @@ const STATUSES = ['Active', 'Paused', 'Churned']
 
 const EMPTY = {
   name: '',
+  partnerName: '',
   serviceType: '',
   subService: '',
   status: 'Active',
@@ -40,6 +41,7 @@ export default function ClientModal({ open, onClose, client, onSaved }) {
     if (client) {
       setForm({
         name: client.name || '',
+        partnerName: client.partnerName || '',
         serviceType: client.serviceType || '',
         subService: client.subService || '',
         status: client.status || 'Active',
@@ -91,6 +93,7 @@ export default function ClientModal({ open, onClose, client, onSaved }) {
       <form onSubmit={handleSubmit} className="space-y-6">
         <Section title="Basic Information">
           <Input label="Client Name" required value={form.name} onChange={set('name')} placeholder="Business name" />
+          <Input label="Partner Name" value={form.partnerName} onChange={set('partnerName')} placeholder="e.g. Partner / Co-owner" />
           <Input label="Service Type" required value={form.serviceType} onChange={set('serviceType')} placeholder="e.g. SEO" />
           <Input label="Sub Service" value={form.subService} onChange={set('subService')} placeholder="e.g. Local SEO" />
           <Select label="Status" value={form.status} onChange={set('status')}>
