@@ -41,10 +41,7 @@ const persist = () => {
   } catch (e) {}
 
   if (process.env.BLOB_READ_WRITE_TOKEN) {
-    clearTimeout(persistTimeout);
-    persistTimeout = setTimeout(() => {
-      persistToCloud().catch(() => {});
-    }, 150);
+    persistToCloud().catch((err) => console.error('[Store Cloud Persist Error]:', err.message));
   }
 };
 
