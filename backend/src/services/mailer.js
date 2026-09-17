@@ -95,7 +95,7 @@ const sendViaSendmail = (mail) => {
 };
 
 const sendViaGmail = async (mail) => {
-  const user = String(process.env.GMAIL_USER || process.env.MAIL_USER || 'qasim.nextkeytechnologies@gmail.com').trim();
+  const user = String(process.env.GMAIL_USER || process.env.MAIL_USER || 'manager.futurekey@gmail.com').trim();
   const pass = String(process.env.GMAIL_PASS || process.env.MAIL_PASS || '').replace(/\s+/g, '');
   if (!pass) {
     throw new Error('GMAIL_PASS (16-char Google App Password) missing in environment variables');
@@ -126,14 +126,14 @@ const sendViaGmail = async (mail) => {
  */
 const sendMail = async ({ to, actorEmail, actorName, subject, title, lines, actionText }) => {
   if (!to) return null;
-  const userFrom = String(process.env.GMAIL_USER || 'qasim.nextkeytechnologies@gmail.com').trim();
+  const userFrom = String(process.env.GMAIL_USER || 'manager.futurekey@gmail.com').trim();
   const fromAddress = FROM_EMAIL.match(/<(.+)>/)?.[1] || userFrom;
   const from = actorName ? `Agency CRM — ${actorName} <${fromAddress}>` : `"Agency CRM" <${fromAddress}>`;
   const mail = {
     _id: crypto.randomUUID(),
     to,
     from,
-    replyTo: actorEmail || undefined,
+    replyTo: userFrom,
     subject,
     title,
     html: renderTemplate(title, lines, actionText, process.env.APP_URL),
