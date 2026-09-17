@@ -32,17 +32,10 @@ app.use(
 );
 app.use(express.json({ limit: '8mb' }));
 
-let cloudSyncDone = false;
-let cloudSyncPromise = null;
+const cloudSyncPromise = require('./store').syncFromCloud().catch(() => false);
 
 app.use(async (req, res, next) => {
-  if (!cloudSyncDone) {
-    if (!cloudSyncPromise) {
-      cloudSyncPromise = require('./store').syncFromCloud().catch(() => false);
-    }
-    await cloudSyncPromise;
-    cloudSyncDone = true;
-  }
+  await cloudSyncPromise;
   next();
 });
 
@@ -75,11 +68,13 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-ensureSuperadmin().catch((err) => console.error('Owner bootstrap failed:', err.message));
+cloudSyncPromise.then(() => ensureSuperadmin()).catch((err) => console.error('Owner bootstrap failed:', err.message));
 
 if (!process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
+  });
+  cloudSyncPromise.then(() => {
     try {
       require('./jobs/reminders').startReminderJob();
     } catch (e) {}

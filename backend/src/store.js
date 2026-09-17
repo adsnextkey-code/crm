@@ -1,8 +1,13 @@
 const fs = require('fs');
 const path = require('path');
+const { MongoClient } = require('mongodb');
 
 const DATA_DIR = process.env.DATA_DIR || (process.env.VERCEL ? path.join('/tmp', 'crm_data') : path.join(__dirname, '..', 'data'));
 const DATA_FILE = path.join(DATA_DIR, 'db.json');
+const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_DB_NAME = process.env.MONGODB_DB || 'agency_crm';
+const STATE_COLLECTION = 'crm_state';
+const STATE_DOC_ID = 'main';
 const COLLECTIONS = ['users', 'clients', 'tasks', 'activities', 'notifications', 'reports', 'campaigns', 'contents', 'announcements', 'invites'];
 const SEQ_KEY_BY_COLLECTION = {
   users: 'user',
@@ -33,23 +38,30 @@ const emptyDb = () => ({
   invites: []
 });
 
-const persist = async () => {
+let mongoClientPromise = null;
+
+const getStateCollection = async () => {
+  if (!MONGODB_URI) return null;
+  if (!mongoClientPromise) {
+    mongoClientPromise = new MongoClient(MONGODB_URI).connect();
+  }
+  const client = await mongoClientPromise;
+  return client.db(MONGODB_DB_NAME).collection(STATE_COLLECTION);
+};
+
+const persistLocalCache = () => {
   try {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
     const tmp = `${DATA_FILE}.tmp`;
     fs.writeFileSync(tmp, JSON.stringify(db, null, 2));
     fs.renameSync(tmp, DATA_FILE);
   } catch (e) {}
-
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
-    try {
-      await persistToCloud();
-    } catch (err) {
-      console.error('[Store Cloud Persist Error]:', err.message);
-    }
-  }
 };
 
-const CLOUD_STORAGE_URL = 'https://api.restful-api.dev/objects/ff8081819ff5b11001a049dbde10572a';
+const persist = async () => {
+  persistLocalCache();
+  await persistToCloud();
+};
 
 const applyCloudDb = (cloudData) => {
   const fresh = emptyDb();
@@ -59,76 +71,31 @@ const applyCloudDb = (cloudData) => {
     if (!Array.isArray(db[c])) db[c] = [];
   });
   syncSeqCounters();
-  try {
-    const tmp = `${DATA_FILE}.tmp`;
-    fs.writeFileSync(tmp, JSON.stringify(db, null, 2));
-    fs.renameSync(tmp, DATA_FILE);
-  } catch (e) {}
+  persistLocalCache();
 };
 
 const persistToCloud = async () => {
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
-    try {
-      const { put } = require('@vercel/blob');
-      await put('crm_database.json', JSON.stringify(db, null, 2), {
-        access: 'public',
-        addRandomSuffix: false
-      });
-      console.log('[Store] Persistent snapshot saved to Vercel Cloud Blob!');
-    } catch (err) {
-      console.error('[Store Vercel Blob Error]:', err.message);
-    }
-  }
-
   try {
-    const res = await fetch(CLOUD_STORAGE_URL, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: 'crm_db', data: db })
-    });
-    if (res.ok) {
-      console.log('[Store] Persistent snapshot saved to Cloud KV Store!');
-    }
+    const collection = await getStateCollection();
+    if (!collection) return;
+    await collection.replaceOne({ _id: STATE_DOC_ID }, { _id: STATE_DOC_ID, ...db }, { upsert: true });
   } catch (err) {
-    console.error('[Store Cloud KV Persist Error]:', err.message);
+    console.error('[Store Mongo Persist Error]:', err.message);
   }
 };
 
 const syncFromCloud = async () => {
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
-    try {
-      const { list } = require('@vercel/blob');
-      const { blobs } = await list({ prefix: 'crm_database.json' });
-      const targetBlob = blobs.find((b) => b.pathname === 'crm_database.json');
-      if (targetBlob && targetBlob.downloadUrl) {
-        const res = await fetch(targetBlob.downloadUrl);
-        if (res.ok) {
-          const cloudData = await res.json();
-          if (cloudData && typeof cloudData === 'object' && Array.isArray(cloudData.tasks)) {
-            applyCloudDb(cloudData);
-            console.log('[Store] Successfully loaded persistent CRM database from Vercel Cloud Blob!');
-            return true;
-          }
-        }
-      }
-    } catch (err) {
-      console.error('[Store Vercel Blob Sync Error]:', err.message);
-    }
-  }
-
   try {
-    const res = await fetch(CLOUD_STORAGE_URL);
-    if (res.ok) {
-      const payload = await res.json();
-      const cloudData = payload && payload.data;
-      if (cloudData && typeof cloudData === 'object' && Array.isArray(cloudData.tasks)) {
-        applyCloudDb(cloudData);
-        console.log('[Store] Successfully loaded persistent CRM database from Cloud KV Store!');
-        return true;
-      }
+    const collection = await getStateCollection();
+    if (!collection) return false;
+    const cloudData = await collection.findOne({ _id: STATE_DOC_ID });
+    if (cloudData && Array.isArray(cloudData.tasks)) {
+      applyCloudDb(cloudData);
+      console.log('[Store] Loaded persistent CRM database from MongoDB');
+      return true;
     }
   } catch (err) {
-    console.error('[Store Cloud KV Sync Error]:', err.message);
+    console.error('[Store Mongo Sync Error]:', err.message);
   }
   return false;
 };
@@ -178,7 +145,7 @@ const init = () => {
       COLLECTIONS.forEach((c) => {
         if (!Array.isArray(db[c])) db[c] = [];
       });
-      if (syncSeqCounters()) persist();
+      syncSeqCounters();
       return;
     } catch (err) {
       db = null;
