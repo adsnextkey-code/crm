@@ -45,8 +45,13 @@ const getStateCollection = async () => {
   if (!mongoClientPromise) {
     mongoClientPromise = new MongoClient(MONGODB_URI).connect();
   }
-  const client = await mongoClientPromise;
-  return client.db(MONGODB_DB_NAME).collection(STATE_COLLECTION);
+  try {
+    const client = await mongoClientPromise;
+    return client.db(MONGODB_DB_NAME).collection(STATE_COLLECTION);
+  } catch (err) {
+    mongoClientPromise = null;
+    throw err;
+  }
 };
 
 const persistLocalCache = () => {
