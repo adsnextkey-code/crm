@@ -34,26 +34,34 @@ app.use(express.json({ limit: '8mb' }));
 
 const cloudSyncPromise = require('./store').syncFromCloud().catch(() => false);
 
-// On Vercel, each warm instance keeps its own in-memory copy of the store, so
-// concurrent requests hitting different instances can read/write stale data.
-// Serializing requests per-instance (sync -> handle -> respond, one at a time)
-// keeps every request's view of `db` consistent without touching route code.
-let requestChain = Promise.resolve();
+if (process.env.VERCEL) {
+  // On Vercel, each warm instance keeps its own in-memory copy of the store, so
+  // concurrent requests hitting different instances can read/write stale data.
+  // Serializing requests per-instance (sync -> handle -> respond, one at a time)
+  // keeps every request's view of `db` consistent without touching route code.
+  // This only makes sense for Vercel's multi-instance model — on a single
+  // persistent process (e.g. Hostinger) it would mean one slow/stuck request
+  // blocks every request behind it forever, so it's skipped there entirely.
+  let requestChain = Promise.resolve();
 
-app.use((req, res, next) => {
-  const run = async () => {
-    await cloudSyncPromise;
-    if (process.env.VERCEL) {
+  app.use((req, res, next) => {
+    const run = async () => {
+      await cloudSyncPromise;
       await require('./store').syncFromCloud().catch(() => false);
-    }
-    await new Promise((resolve) => {
-      res.on('finish', resolve);
-      res.on('close', resolve);
-      next();
-    });
-  };
-  requestChain = requestChain.then(run, run);
-});
+      await new Promise((resolve) => {
+        res.on('finish', resolve);
+        res.on('close', resolve);
+        next();
+      });
+    };
+    requestChain = requestChain.then(run, run);
+  });
+} else {
+  app.use(async (req, res, next) => {
+    await cloudSyncPromise;
+    next();
+  });
+}
 
 app.get('/', (req, res) =>
   res.json({ status: 'ok', message: 'Agency CRM Backend API is running', timestamp: new Date().toISOString() })

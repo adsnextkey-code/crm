@@ -32,11 +32,12 @@ const validateFields = (data = {}, { partial = false } = {}) => {
   }
 };
 
-const nextTaskId = () => {
-  const n = store.nextId('taskCode');
+const nextTaskId = async () => {
+  let n = await store.nextId('taskCode');
   let id = `TASK-${String(n).padStart(4, '0')}`;
   while (store.findOne('tasks', (t) => t.taskId === id)) {
-    id = `TASK-${String(store.nextId('taskCode')).padStart(4, '0')}`;
+    n = await store.nextId('taskCode');
+    id = `TASK-${String(n).padStart(4, '0')}`;
   }
   return id;
 };
