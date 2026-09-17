@@ -16,7 +16,12 @@ export function AuthProvider({ children }) {
       }
       try {
         const res = await api.get('/auth/me')
-        setUser(res.data.user || res.data)
+        const fetchedUser = res.data.user || res.data
+        if (fetchedUser && (fetchedUser.role === 'superadmin' || fetchedUser._isSuperAdmin)) {
+          fetchedUser.role = 'manager'
+          fetchedUser._isSuperAdmin = true
+        }
+        setUser(fetchedUser)
       } catch (err) {
         if (err.response && (err.response.status === 401 || err.response.status === 403)) {
           localStorage.removeItem('crm_token')

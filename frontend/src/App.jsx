@@ -22,6 +22,45 @@ import MyWork from './pages/MyWork'
 import MyProfile from './pages/MyProfile'
 import InstallPrompt from './components/InstallPrompt'
 
+import { Component } from 'react'
+
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { hasError: false, error: null }
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error }
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('Unhandled UI error:', error, errorInfo)
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6 text-center">
+          <div className="max-w-md bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+            <h2 className="text-lg font-bold text-gray-900 mb-2">Something went wrong</h2>
+            <p className="text-xs text-gray-500 mb-4">
+              An unexpected error occurred while loading the app.
+            </p>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-indigo-600 text-white text-xs font-semibold rounded-lg hover:bg-indigo-700 transition-colors"
+            >
+              Reload Page
+            </button>
+          </div>
+        </div>
+      )
+    }
+    return this.props.children
+  }
+}
+
 function Loading() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f7f8fa]">
@@ -30,11 +69,22 @@ function Loading() {
   )
 }
 
+function getEffectiveRole(user) {
+  if (!user) return 'team'
+  if (user.role === 'manager' || user.role === 'superadmin' || user._isSuperAdmin) {
+    return 'manager'
+  }
+  return 'team'
+}
+
 function ProtectedRoute({ children, role }) {
   const { user, token, loading } = useAuth()
   if (loading) return <Loading />
   if (!token || !user) return <Navigate to="/login" replace />
-  if (role && user.role !== role) return <Navigate to="/" replace />
+  const effectiveRole = getEffectiveRole(user)
+  if (role && effectiveRole !== role) {
+    return <Navigate to={effectiveRole === 'manager' ? '/dashboard' : '/my-dashboard'} replace />
+  }
   return children
 }
 
@@ -42,12 +92,14 @@ function RootRedirect() {
   const { user, token, loading } = useAuth()
   if (loading) return <Loading />
   if (!token || !user) return <Navigate to="/login" replace />
-  return <Navigate to={user.role === 'manager' ? '/dashboard' : '/my-dashboard'} replace />
+  const effectiveRole = getEffectiveRole(user)
+  return <Navigate to={effectiveRole === 'manager' ? '/dashboard' : '/my-dashboard'} replace />
 }
 
 function ProfileWrapper() {
   const { user } = useAuth()
-  return user?.role === 'manager' ? <ManagerLayout /> : <TeamLayout />
+  const effectiveRole = getEffectiveRole(user)
+  return effectiveRole === 'manager' ? <ManagerLayout /> : <TeamLayout />
 }
 
 const managerPages = [
@@ -72,65 +124,67 @@ const teamPages = [
 
 export default function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Toaster
-          position="top-center"
-          toastOptions={{
-            style: {
-              background: '#ffffff',
-              color: '#111827',
-              border: '1px solid #e5e7eb',
-            },
-          }}
-        />
-        <InstallPrompt />
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/invite/:token" element={<AcceptInvite />} />
-          {managerPages.map(([path, Page]) => (
-            <Route
-              key={path}
-              path={path}
-              element={
-                <ProtectedRoute role="manager">
-                  <ManagerLayout />
-                </ProtectedRoute>
-              }
-            >
-              <Route index element={<Page />} />
-            </Route>
-          ))}
-          {teamPages.map(([path, Page]) => (
-            <Route
-              key={path}
-              path={path}
-              element={
-                <ProtectedRoute role="team">
-                  <TeamLayout />
-                </ProtectedRoute>
-              }
-            >
-              <Route index element={<Page />} />
-            </Route>
-          ))}
-          {['/my-profile', '/profile'].map((path) => (
-            <Route
-              key={path}
-              path={path}
-              element={
-                <ProtectedRoute>
-                  <ProfileWrapper />
-                </ProtectedRoute>
-              }
-            >
-              <Route index element={<MyProfile />} />
-            </Route>
-          ))}
-          <Route path="/" element={<RootRedirect />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+    <ErrorBoundary>
+      <AuthProvider>
+        <BrowserRouter>
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              style: {
+                background: '#ffffff',
+                color: '#111827',
+                border: '1px solid #e5e7eb',
+              },
+            }}
+          />
+          <InstallPrompt />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/invite/:token" element={<AcceptInvite />} />
+            {managerPages.map(([path, Page]) => (
+              <Route
+                key={path}
+                path={path}
+                element={
+                  <ProtectedRoute role="manager">
+                    <ManagerLayout />
+                  </ProtectedRoute>
+                }
+              >
+                <Route index element={<Page />} />
+              </Route>
+            ))}
+            {teamPages.map(([path, Page]) => (
+              <Route
+                key={path}
+                path={path}
+                element={
+                  <ProtectedRoute role="team">
+                    <TeamLayout />
+                  </ProtectedRoute>
+                }
+              >
+                <Route index element={<Page />} />
+              </Route>
+            ))}
+            {['/my-profile', '/profile'].map((path) => (
+              <Route
+                key={path}
+                path={path}
+                element={
+                  <ProtectedRoute>
+                    <ProfileWrapper />
+                  </ProtectedRoute>
+                }
+              >
+                <Route index element={<MyProfile />} />
+              </Route>
+            ))}
+            <Route path="/" element={<RootRedirect />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </ErrorBoundary>
   )
 }

@@ -163,6 +163,28 @@ router.put('/:id', auth, async (req, res, next) => {
 
     if (req.body.status === 'Completed' && oldStatus !== 'Completed') {
       patch.completedAt = new Date().toISOString();
+      if (task.recurrence && task.recurrence !== 'none') {
+        const intervalDays = { daily: 1, weekly: 7, monthly: 30 }[task.recurrence] || 7;
+        const currentDue = task.dueDate ? new Date(task.dueDate) : new Date();
+        const nextDue = new Date(currentDue.getTime() + intervalDays * 86400000);
+        await Task.createTask({
+          title: task.title,
+          description: task.description,
+          client: task.client?._id || task.client,
+          clientName: task.clientName,
+          serviceType: task.serviceType,
+          assignedTo: task.assignedTo?._id || task.assignedTo,
+          assignedToName: task.assignedToName,
+          department: task.department,
+          priority: task.priority,
+          status: 'Pending',
+          dueDate: nextDue.toISOString(),
+          recurrence: task.recurrence,
+          parentTaskId: task._id,
+          isRecurringInstance: true,
+          createdBy: req.user._id
+        });
+      }
     } else if (req.body.status && req.body.status !== 'Completed' && oldStatus === 'Completed') {
       patch.completedAt = null;
     }
