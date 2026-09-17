@@ -83,6 +83,16 @@ const persistToCloud = async () => {
   try {
     const collection = await getStateCollection();
     if (!collection) return;
+    const existing = await collection.findOne({ _id: STATE_DOC_ID });
+    if (existing) {
+      const wipedOut = COLLECTIONS.some(
+        (c) => Array.isArray(existing[c]) && existing[c].length > 0 && (db[c] || []).length === 0
+      );
+      if (wipedOut) {
+        console.error('[Store] Refusing to overwrite MongoDB: local data has one or more collections empty where remote has records. Skipping persist to avoid data loss.');
+        return;
+      }
+    }
     await collection.replaceOne({ _id: STATE_DOC_ID }, { _id: STATE_DOC_ID, ...db }, { upsert: true });
   } catch (err) {
     console.error('[Store Mongo Persist Error]:', err.message);
@@ -157,7 +167,7 @@ const init = () => {
     }
   }
   db = emptyDb();
-  persist();
+  persistLocalCache();
 };
 
 const reset = async () => {
