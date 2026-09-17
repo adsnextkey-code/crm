@@ -27,9 +27,9 @@ router.put('/read-all', auth, (req, res, next) => {
   }
 });
 
-router.put('/:id/read', auth, (req, res, next) => {
+router.put('/:id/read', auth, async (req, res, next) => {
   try {
-    const updated = Notification.markRead(req.user._id, req.params.id);
+    const updated = await Notification.markRead(req.user._id, req.params.id);
     if (!updated) return res.status(404).json({ message: 'Notification not found' });
     res.json(updated);
   } catch (err) {

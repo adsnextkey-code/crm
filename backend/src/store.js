@@ -85,11 +85,18 @@ const persistToCloud = async () => {
     if (!collection) return;
     const existing = await collection.findOne({ _id: STATE_DOC_ID });
     if (existing) {
-      const wipedOut = COLLECTIONS.some(
-        (c) => Array.isArray(existing[c]) && existing[c].length > 0 && (db[c] || []).length === 0
-      );
-      if (wipedOut) {
-        console.error('[Store] Refusing to overwrite MongoDB: local data has one or more collections empty where remote has records. Skipping persist to avoid data loss.');
+      const totalOf = (source) =>
+        COLLECTIONS.reduce((sum, c) => sum + (Array.isArray(source[c]) ? source[c].length : 0), 0);
+      const existingTotal = totalOf(existing);
+      const newTotal = totalOf(db);
+      // A single normal CRUD action only ever adds/removes one record, so a
+      // drop this large means `db` is a fresh/reset state (e.g. a deploy with
+      // no local cache and a momentarily unreachable database), not a real
+      // user action. Refuse to let that overwrite good remote data.
+      const looksWiped =
+        existingTotal > 0 && (newTotal === 0 || existingTotal - newTotal > Math.max(5, existingTotal * 0.5));
+      if (looksWiped) {
+        console.error(`[Store] Refusing to overwrite MongoDB: record count dropped from ${existingTotal} to ${newTotal}. Skipping persist to avoid data loss.`);
         return;
       }
     }

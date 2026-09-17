@@ -66,7 +66,7 @@ router.get('/', auth, (req, res, next) => {
   }
 });
 
-router.post('/', auth, (req, res, next) => {
+router.post('/', auth, async (req, res, next) => {
   try {
     const body = { ...(req.body || {}) };
     if (req.user.role === 'team') {
@@ -75,7 +75,7 @@ router.post('/', auth, (req, res, next) => {
         return res.status(403).json({ message: 'You can only add content for your own clients' });
       }
     }
-    const content = Content.createContent(body, {
+    const content = await Content.createContent(body, {
       userId: req.user._id,
       userName: req.user.name
     });
@@ -107,7 +107,7 @@ router.get('/:id', auth, (req, res, next) => {
   }
 });
 
-router.put('/:id', auth, (req, res, next) => {
+router.put('/:id', auth, async (req, res, next) => {
   try {
     const existing = Content.findById(req.params.id);
     if (!existing) return res.status(404).json({ message: 'Content not found' });
@@ -117,7 +117,7 @@ router.put('/:id', auth, (req, res, next) => {
     if (req.user.role !== 'manager' && String(existing.assignedTo) !== String(req.user._id)) {
       return res.status(403).json({ message: 'You can only edit content assigned to you' });
     }
-    const content = Content.updateContent(req.params.id, req.body || {});
+    const content = await Content.updateContent(req.params.id, req.body || {});
     logActivity({
       user: req.user._id,
       userName: req.user.name,
@@ -133,7 +133,7 @@ router.put('/:id', auth, (req, res, next) => {
   }
 });
 
-router.put('/:id/status', auth, (req, res, next) => {
+router.put('/:id/status', auth, async (req, res, next) => {
   try {
     const existing = Content.findById(req.params.id);
     if (!existing) return res.status(404).json({ message: 'Content not found' });
@@ -149,7 +149,7 @@ router.put('/:id/status', auth, (req, res, next) => {
         .json({ message: 'Access denied, manager role required for this transition' });
     }
     const { status, note, scheduledDate } = req.body || {};
-    const content = Content.applyTransition(req.params.id, {
+    const content = await Content.applyTransition(req.params.id, {
       toStatus: status,
       userId: req.user._id,
       userName: req.user.name,
@@ -171,7 +171,7 @@ router.put('/:id/status', auth, (req, res, next) => {
   }
 });
 
-router.post('/:id/feedback', auth, (req, res, next) => {
+router.post('/:id/feedback', auth, async (req, res, next) => {
   try {
     const content = Content.findById(req.params.id);
     if (!content) return res.status(404).json({ message: 'Content not found' });
@@ -187,7 +187,7 @@ router.post('/:id/feedback', auth, (req, res, next) => {
       text,
       at: new Date().toISOString()
     };
-    const updated = store.update('contents', content._id, {
+    const updated = await store.update('contents', content._id, {
       feedback: [...(content.feedback || []), entry]
     });
 
@@ -223,9 +223,9 @@ router.post('/:id/feedback', auth, (req, res, next) => {
   }
 });
 
-router.delete('/:id', auth, managerOnly, (req, res, next) => {
+router.delete('/:id', auth, managerOnly, async (req, res, next) => {
   try {
-    const content = store.delete('contents', req.params.id);
+    const content = await store.delete('contents', req.params.id);
     if (!content) return res.status(404).json({ message: 'Content not found' });
     logActivity({
       user: req.user._id,

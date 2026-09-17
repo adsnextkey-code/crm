@@ -90,9 +90,9 @@ router.get('/:id/tasks', auth, (req, res, next) => {
   }
 });
 
-router.post('/', auth, managerOnly, (req, res, next) => {
+router.post('/', auth, managerOnly, async (req, res, next) => {
   try {
-    const campaign = Campaign.createCampaign(req.body || {});
+    const campaign = await Campaign.createCampaign(req.body || {});
     logActivity({
       user: req.user._id,
       userName: req.user.name,
@@ -108,9 +108,9 @@ router.post('/', auth, managerOnly, (req, res, next) => {
   }
 });
 
-router.put('/:id', auth, managerOnly, (req, res, next) => {
+router.put('/:id', auth, managerOnly, async (req, res, next) => {
   try {
-    const campaign = Campaign.updateCampaign(req.params.id, req.body || {});
+    const campaign = await Campaign.updateCampaign(req.params.id, req.body || {});
     if (!campaign) return res.status(404).json({ message: 'Campaign not found' });
     logActivity({
       user: req.user._id,
@@ -127,9 +127,9 @@ router.put('/:id', auth, managerOnly, (req, res, next) => {
   }
 });
 
-router.delete('/:id', auth, managerOnly, (req, res, next) => {
+router.delete('/:id', auth, managerOnly, async (req, res, next) => {
   try {
-    const campaign = store.delete('campaigns', req.params.id);
+    const campaign = await store.delete('campaigns', req.params.id);
     if (!campaign) return res.status(404).json({ message: 'Campaign not found' });
     store.find('tasks', (t) => String(t.campaignId) === String(campaign._id)).forEach((t) => {
       Task.updateTask(t._id, { campaignId: null });

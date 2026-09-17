@@ -40,7 +40,7 @@ router.get('/', (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const invite = Invite.createInvite({
+    const invite = await Invite.createInvite({
       email: req.body.email,
       name: req.body.name,
       role: req.body.role,
@@ -76,7 +76,7 @@ router.post('/:id/resend', async (req, res, next) => {
     if (!current) return res.status(404).json({ message: 'Invite not found' });
 
     const expired = new Date(current.expiresAt).getTime() < Date.now();
-    const invite = expired ? Invite.rotateToken(current) : current;
+    const invite = expired ? await Invite.rotateToken(current) : current;
 
     const mail = await sendInviteMail(invite, { resend: true });
     if (mail && mail.status === 'failed') {
@@ -88,9 +88,9 @@ router.post('/:id/resend', async (req, res, next) => {
   }
 });
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   try {
-    const deleted = Invite.deleteInvite(req.params.id);
+    const deleted = await Invite.deleteInvite(req.params.id);
     if (!deleted) return res.status(404).json({ message: 'Invite not found' });
     logActivity({
       user: req.user._id,

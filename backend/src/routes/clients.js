@@ -112,7 +112,7 @@ router.get('/:id/vault', auth, vaultManagerOnly, (req, res, next) => {
   }
 });
 
-router.put('/:id/vault', auth, vaultManagerOnly, (req, res, next) => {
+router.put('/:id/vault', auth, vaultManagerOnly, async (req, res, next) => {
   try {
     const client = Client.findById(req.params.id);
     if (!client) return res.status(404).json({ message: 'Client not found' });
@@ -121,7 +121,7 @@ router.put('/:id/vault', auth, vaultManagerOnly, (req, res, next) => {
         return res.status(400).json({ message: 'File too large (max 2MB)' });
       }
     }
-    const vault = Client.updateVault(req.params.id, req.body || {});
+    const vault = await Client.updateVault(req.params.id, req.body || {});
     logActivity(req, 'updated client vault', 'client', String(client._id), client.name);
     res.json(vault);
   } catch (err) {
@@ -142,7 +142,7 @@ router.get('/:id/reports', auth, (req, res, next) => {
   }
 });
 
-router.post('/:id/reports', auth, (req, res, next) => {
+router.post('/:id/reports', auth, async (req, res, next) => {
   try {
     const client = Client.findById(req.params.id);
     if (!client) return res.status(404).json({ message: 'Client not found' });
@@ -153,7 +153,7 @@ router.post('/:id/reports', auth, (req, res, next) => {
     if (typeof fileData === 'string' && fileData.length > Report.MAX_FILE_CHARS) {
       return res.status(400).json({ message: 'File too large (max 2MB)' });
     }
-    const report = Report.createReport({
+    const report = await Report.createReport({
       clientId: client._id,
       title,
       period,
@@ -172,7 +172,7 @@ router.post('/:id/reports', auth, (req, res, next) => {
   }
 });
 
-router.delete('/:id/reports/:reportId', auth, (req, res, next) => {
+router.delete('/:id/reports/:reportId', auth, async (req, res, next) => {
   try {
     const client = Client.findById(req.params.id);
     if (!client) return res.status(404).json({ message: 'Client not found' });
@@ -186,16 +186,16 @@ router.delete('/:id/reports/:reportId', auth, (req, res, next) => {
     if (req.user.role !== 'manager' && String(report.createdBy) !== String(req.user._id)) {
       return res.status(403).json({ message: 'You can only delete your own reports' });
     }
-    Report.deleteReport(report._id);
+    await Report.deleteReport(report._id);
     res.json({ message: 'Report deleted' });
   } catch (err) {
     next(err);
   }
 });
 
-router.post('/', auth, managerOnly, (req, res, next) => {
+router.post('/', auth, managerOnly, async (req, res, next) => {
   try {
-    const client = Client.createClient(req.body);
+    const client = await Client.createClient(req.body);
     logActivity(req, 'created client', 'client', String(client._id), client.name);
     res.status(201).json(client);
   } catch (err) {
@@ -203,9 +203,9 @@ router.post('/', auth, managerOnly, (req, res, next) => {
   }
 });
 
-router.put('/:id', auth, managerOnly, (req, res, next) => {
+router.put('/:id', auth, managerOnly, async (req, res, next) => {
   try {
-    const client = Client.updateClient(req.params.id, req.body);
+    const client = await Client.updateClient(req.params.id, req.body);
     if (!client) return res.status(404).json({ message: 'Client not found' });
     logActivity(req, 'updated client', 'client', String(client._id), client.name);
     res.json(client);
@@ -214,9 +214,9 @@ router.put('/:id', auth, managerOnly, (req, res, next) => {
   }
 });
 
-router.delete('/:id', auth, managerOnly, (req, res, next) => {
+router.delete('/:id', auth, managerOnly, async (req, res, next) => {
   try {
-    const client = store.delete('clients', req.params.id);
+    const client = await store.delete('clients', req.params.id);
     if (!client) return res.status(404).json({ message: 'Client not found' });
     logActivity(req, 'deleted client', 'client', String(client._id), client.name);
     res.json({ message: `Client ${client.clientId} deleted` });

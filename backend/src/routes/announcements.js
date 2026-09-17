@@ -18,7 +18,7 @@ router.get('/', auth, (req, res, next) => {
 
 router.post('/', auth, managerOnly, async (req, res, next) => {
   try {
-    const announcement = Announcement.createAnnouncement({
+    const announcement = await Announcement.createAnnouncement({
       title: req.body.title,
       body: req.body.body,
       pinned: req.body.pinned,
@@ -72,9 +72,9 @@ router.post('/', auth, managerOnly, async (req, res, next) => {
   }
 });
 
-router.delete('/:id', auth, managerOnly, (req, res, next) => {
+router.delete('/:id', auth, managerOnly, async (req, res, next) => {
   try {
-    const announcement = Announcement.deleteAnnouncement(req.params.id);
+    const announcement = await Announcement.deleteAnnouncement(req.params.id);
     if (!announcement) return res.status(404).json({ message: 'Announcement not found' });
     logActivity({
       user: req.user._id,
