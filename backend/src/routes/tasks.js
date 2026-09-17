@@ -210,21 +210,22 @@ router.put('/:id', auth, async (req, res, next) => {
         title: `Task moved to ${saved.status}`,
         body: saved.title
       });
-      if (saved.status === 'Completed') {
-        sendMail({
-          to: userEmail(saved.createdBy),
-          actorEmail: req.user.email,
-          actorName: req.user.name,
-          subject: `Task completed: ${saved.title}`,
-          title: 'Your task was completed',
-          lines: [
-            ['Task', saved.title],
-            ['Completed by', req.user.name],
-            ['Time logged', `${Task.computeTotalMinutes(saved)}m`]
-          ],
-          actionText: 'Review Task'
-        });
-      }
+    }
+
+    if (patch.status && patch.status !== oldStatus && saved.status === 'Completed') {
+      sendMail({
+        to: process.env.GMAIL_USER,
+        actorEmail: req.user.email,
+        actorName: req.user.name,
+        subject: `Task completed: ${saved.title}`,
+        title: 'A task was completed',
+        lines: [
+          ['Task', saved.title],
+          ['Completed by', req.user.name],
+          ['Time logged', `${Task.computeTotalMinutes(saved)}m`]
+        ],
+        actionText: 'Review Task'
+      });
     }
 
     logActivity({
