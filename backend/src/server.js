@@ -36,6 +36,9 @@ const cloudSyncPromise = require('./store').syncFromCloud().catch(() => false);
 
 app.use(async (req, res, next) => {
   await cloudSyncPromise;
+  if (process.env.VERCEL) {
+    await require('./store').syncFromCloud().catch(() => false);
+  }
   next();
 });
 
