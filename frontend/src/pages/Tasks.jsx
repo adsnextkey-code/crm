@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
-import { Plus, Search, Download, KanbanSquare, GripVertical, Clock, Repeat } from 'lucide-react'
+import { Plus, Search, Download, KanbanSquare, GripVertical, Clock, Repeat, Trash2, X } from 'lucide-react'
 import api from '../utils/api'
 import { Badge, Avatar, Button, Spinner, EmptyState, PageHeader, formatDate, isOverdue, downloadCSV } from '../components/ui'
 import TaskModal, { formatDuration } from '../components/TaskModal'
@@ -20,6 +20,8 @@ export default function Tasks() {
   const [editingTask, setEditingTask] = useState(null)
   const [dragTaskId, setDragTaskId] = useState(null)
   const [dragOverCol, setDragOverCol] = useState(null)
+  const [selectedIds, setSelectedIds] = useState(() => new Set())
+  const [deleting, setDeleting] = useState(false)
 
   useEffect(() => {
     const load = async () => {
@@ -78,6 +80,59 @@ export default function Tasks() {
       setTasks(prev)
       toast.error(err.response?.data?.message || 'Failed to update task status')
     }
+  }
+
+  const toggleSelect = (id) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const clearSelection = () => setSelectedIds(new Set())
+
+  const deleteOne = async (task) => {
+    if (!window.confirm(`Delete task "${task.title}"? This cannot be undone.`)) return
+    try {
+      await api.delete(`/tasks/${task._id}`)
+      setTasks((ts) => ts.filter((t) => t._id !== task._id))
+      setSelectedIds((prev) => {
+        if (!prev.has(task._id)) return prev
+        const next = new Set(prev)
+        next.delete(task._id)
+        return next
+      })
+      toast.success('Task deleted')
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Failed to delete task')
+    }
+  }
+
+  const deleteSelected = async () => {
+    const ids = [...selectedIds]
+    if (ids.length === 0) return
+    if (!window.confirm(`Delete ${ids.length} selected task${ids.length === 1 ? '' : 's'}? This cannot be undone.`)) return
+    setDeleting(true)
+    let failed = 0
+    for (const id of ids) {
+      try {
+        await api.delete(`/tasks/${id}`)
+      } catch {
+        failed++
+      }
+    }
+    setDeleting(false)
+    clearSelection()
+    try {
+      const res = await api.get('/tasks')
+      setTasks(res.data || [])
+    } catch {
+      window.location.reload()
+    }
+    if (failed > 0) toast.error(`${failed} task${failed === 1 ? '' : 's'} could not be deleted`)
+    else toast.success(`${ids.length} task${ids.length === 1 ? '' : 's'} deleted`)
   }
 
   const exportCsv = () => {
@@ -151,6 +206,28 @@ export default function Tasks() {
         ))}
       </div>
 
+      {selectedIds.size > 0 && (
+        <div className="flex items-center justify-between gap-3 mb-4 px-3.5 py-2.5 rounded-lg bg-indigo-50 border border-indigo-100">
+          <span className="text-sm text-indigo-700 font-medium">
+            {selectedIds.size} task{selectedIds.size === 1 ? '' : 's'} selected
+          </span>
+          <div className="flex items-center gap-2">
+            <Button onClick={clearSelection} className="px-3 py-1.5 text-xs">
+              <X size={13} />
+              Cancel
+            </Button>
+            <button
+              onClick={deleteSelected}
+              disabled={deleting}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-red-600 text-white hover:bg-red-700 disabled:opacity-50 transition-colors duration-150"
+            >
+              <Trash2 size={13} />
+              {deleting ? 'Deleting...' : 'Delete Selected'}
+            </button>
+          </div>
+        </div>
+      )}
+
       {filtered.length === 0 ? (
         <EmptyState icon={KanbanSquare} message="No tasks found" hint="Adjust filters or create a new task" />
       ) : (
@@ -195,12 +272,29 @@ export default function Tasks() {
                         }`}
                       >
                         <div className="flex items-start gap-2">
+                          <input
+                            type="checkbox"
+                            checked={selectedIds.has(t._id)}
+                            onClick={(e) => e.stopPropagation()}
+                            onChange={() => toggleSelect(t._id)}
+                            className="mt-1 shrink-0 cursor-pointer accent-indigo-600"
+                          />
                           <GripVertical size={13} className="text-gray-300 mt-0.5 shrink-0" />
                           <div className="min-w-0 flex-1">
                             <h4 className="text-sm font-medium text-gray-900 leading-snug line-clamp-2">{t.title}</h4>
                             {t.taskId && <p className="text-[11px] text-gray-400 mt-1">#{t.taskId}</p>}
                             <div className="mt-2"><Badge text={t.priority} type="priority" /></div>
                           </div>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              deleteOne(t)
+                            }}
+                            title="Delete task"
+                            className="shrink-0 text-gray-300 hover:text-red-600 transition-colors duration-150"
+                          >
+                            <Trash2 size={14} />
+                          </button>
                         </div>
                         <div className="mt-2.5 pt-2.5 border-t border-gray-100 flex items-center justify-between gap-2">
                           <div className="flex items-center gap-1.5 min-w-0">
