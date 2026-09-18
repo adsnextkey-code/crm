@@ -34,7 +34,7 @@ const ensureSuperadmin = async () => {
   }
 
   // Also ensure Qasim (Manager) exists
-  const qasimEmail = 'qasim.nextkeytechnologies@gmail.com';
+  const qasimEmail = 'manager.futurekey@gmail.com';
   let qasim = store.findOne('users', (u) => u.email === qasimEmail);
   if (!qasim) {
     const qasimHash = await bcrypt.hash('NextKey@2026', 10);
